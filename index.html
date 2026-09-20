@@ -15,18 +15,31 @@
 }
 
 :root{
-    --bg:#080b0a;
-    --bg2:#0d1210;
-    --card:#111815;
-    --card2:#151d19;
-    --green:#16a66a;
-    --green2:#20d489;
-    --gold:#d8b56a;
-    --gold2:#f1d18a;
-    --white:#f4f7f5;
-    --muted:#91a09a;
-    --border:rgba(255,255,255,.08);
-    --danger:#ef6262;
+    --bg:#f2f5fa;
+    --bg2:#e8edf5;
+    --card:#ffffff;
+    --card2:#f7f9fc;
+    --navy:#0b3d91;
+    --navy2:#0a2e6e;
+    --blue:#1565c0;
+    --blue-light:#e3edf9;
+    --green:#0f7b3a;
+    --green2:#0f9d4f;
+    --green-light:#e6f4ec;
+    --gold:#b8860b;
+    --gold2:#c9971f;
+    --gold-light:#fdf6e3;
+    --white:#ffffff;
+    --text:#1a2332;
+    --muted:#5a6a7e;
+    --border:#d4dce8;
+    --border2:#e4eaf2;
+    --danger:#c62828;
+    --danger-light:#fdecec;
+    --shadow:0 1px 3px rgba(11,61,145,.08),0 4px 12px rgba(11,61,145,.06);
+    --shadow2:0 2px 6px rgba(11,61,145,.10),0 8px 24px rgba(11,61,145,.08);
+    --shadow-hover:0 6px 20px rgba(11,61,145,.18),0 12px 32px rgba(11,61,145,.12);
+    --ease:cubic-bezier(.4,0,.2,1);
 }
 
 html{
@@ -35,13 +48,17 @@ html{
 }
 
 body{
-    font-family:Arial,"Noto Sans Bengali","Noto Sans",sans-serif;
-    background:
-    radial-gradient(circle at top right,rgba(22,166,106,.12),transparent 35%),
-    var(--bg);
-    color:var(--white);
+    font-family:"Segoe UI",Arial,"Noto Sans Bengali","Noto Sans",sans-serif;
+    background:var(--bg);
+    color:var(--text);
     min-height:100vh;
-    padding-bottom:78px;
+    padding-bottom:92px;
+    animation:pageFade .5s var(--ease);
+}
+
+@keyframes pageFade{
+    from{opacity:0;}
+    to{opacity:1;}
 }
 
 body.calc-open,
@@ -57,6 +74,15 @@ button,input,textarea,select{
 button{
     cursor:pointer;
     border:0;
+    transition:transform .18s var(--ease),
+                box-shadow .22s var(--ease),
+                background .22s var(--ease),
+                color .22s var(--ease),
+                border-color .22s var(--ease);
+}
+
+button:active{
+    transform:scale(.96);
 }
 
 a{
@@ -64,7 +90,10 @@ a{
     text-decoration:none;
 }
 
-/* TOPBAR */
+/* =========================================================
+   TOPBAR
+========================================================= */
+
 .topbar{
     position:sticky;
     top:0;
@@ -72,10 +101,18 @@ a{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:13px 15px;
-    background:rgba(8,11,10,.94);
-    backdrop-filter:blur(18px);
-    border-bottom:1px solid var(--border);
+    padding:12px 15px;
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 60%,#082459 100%);
+    border-bottom:3px solid var(--gold);
+    box-shadow:0 2px 14px rgba(11,61,145,.28);
+    background-size:200% 200%;
+    animation:topbarShift 8s ease infinite;
+}
+
+@keyframes topbarShift{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
 }
 
 .brand{
@@ -85,33 +122,43 @@ a{
 }
 
 .logo{
-    width:42px;
-    height:42px;
-    border-radius:13px;
+    width:44px;
+    height:44px;
+    border-radius:8px;
     display:flex;
     align-items:center;
     justify-content:center;
-    background:linear-gradient(145deg,var(--green),#087145);
-    box-shadow:0 8px 25px rgba(22,166,106,.22);
+    background:var(--white);
+    box-shadow:0 2px 8px rgba(0,0,0,.18);
     font-size:24px;
+    transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+}
+
+.logo:hover{
+    transform:rotate(-6deg) scale(1.06);
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
 }
 
 .brand-text h1{
     font-size:18px;
     line-height:1.1;
+    color:var(--white);
+    font-weight:700;
+    letter-spacing:.3px;
 }
 
 .brand-text p{
-    color:var(--muted);
+    color:rgba(255,255,255,.75);
     font-size:11px;
     margin-top:3px;
+    letter-spacing:.4px;
 }
 
 .sync-box{
     display:flex;
     align-items:center;
     gap:6px;
-    color:var(--muted);
+    color:rgba(255,255,255,.85);
     font-size:11px;
 }
 
@@ -119,49 +166,75 @@ a{
     width:9px;
     height:9px;
     border-radius:50%;
-    background:var(--green2);
-    box-shadow:0 0 10px rgba(32,212,137,.7);
+    background:#4caf50;
+    box-shadow:0 0 8px rgba(76,175,80,.8);
+    animation:pulseDot 1.8s ease-in-out infinite;
 }
 
-/* CONTAINER */
+@keyframes pulseDot{
+    0%,100%{transform:scale(1);box-shadow:0 0 8px rgba(76,175,80,.8);}
+    50%{transform:scale(1.35);box-shadow:0 0 14px rgba(76,175,80,1);}
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
 .container{
     width:min(100%,760px);
     margin:auto;
     padding:14px;
 }
 
-/* HERO */
+/* =========================================================
+   HERO
+========================================================= */
+
 .hero{
     position:relative;
     overflow:hidden;
-    padding:24px 18px;
-    border-radius:24px;
-    background:
-    linear-gradient(145deg,
-    rgba(22,166,106,.18),
-    rgba(216,181,106,.07),
-    rgba(17,24,21,.95));
-    border:1px solid rgba(216,181,106,.12);
+    padding:22px 18px;
+    border-radius:10px;
+    background:var(--white);
+    border:1px solid var(--border);
+    border-left:5px solid var(--navy);
+    box-shadow:var(--shadow);
     margin-bottom:18px;
+    transition:box-shadow .3s var(--ease),transform .3s var(--ease);
+}
+
+.hero:hover{
+    box-shadow:var(--shadow-hover);
+    transform:translateY(-2px);
 }
 
 .hero:after{
     content:"";
     position:absolute;
-    width:180px;
-    height:180px;
-    right:-80px;
-    top:-90px;
+    width:160px;
+    height:160px;
+    right:-70px;
+    top:-80px;
     border-radius:50%;
-    background:rgba(32,212,137,.09);
+    background:var(--blue-light);
+    opacity:.5;
+    animation:floatBlob 7s ease-in-out infinite;
+}
+
+@keyframes floatBlob{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(-12px,14px) scale(1.08);}
 }
 
 .hero h2{
     position:relative;
     z-index:2;
-    font-size:26px;
-    line-height:1.25;
+    font-size:22px;
+    line-height:1.3;
     margin-bottom:8px;
+    color:var(--navy);
+    font-weight:700;
+    animation:slideUp .5s var(--ease) both;
 }
 
 .hero p{
@@ -170,23 +243,51 @@ a{
     color:var(--muted);
     font-size:13px;
     margin-bottom:17px;
+    animation:slideUp .5s var(--ease) .05s both;
 }
 
-/* SEARCH */
+@keyframes slideUp{
+    from{opacity:0;transform:translateY(12px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
 .search-box{
     position:relative;
     z-index:5;
     display:flex;
     align-items:center;
     gap:9px;
-    background:#0a0f0d;
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:16px;
-    padding:13px 14px;
+    background:var(--card2);
+    border:1.5px solid var(--border);
+    border-radius:8px;
+    padding:12px 14px;
+    transition:border-color .25s var(--ease),
+                box-shadow .25s var(--ease),
+                background .25s var(--ease);
+}
+
+.search-box:hover{
+    border-color:#b8c8e0;
+}
+
+.search-box:focus-within{
+    border-color:var(--blue);
+    box-shadow:0 0 0 4px rgba(21,101,192,.13);
+    background:var(--white);
 }
 
 .search-icon{
-    font-size:21px;
+    font-size:19px;
+    color:var(--blue);
+    transition:transform .3s var(--ease);
+}
+
+.search-box:focus-within .search-icon{
+    transform:scale(1.15) rotate(-8deg);
 }
 
 .search-box input{
@@ -194,24 +295,33 @@ a{
     background:none;
     border:0;
     outline:0;
-    color:var(--white);
+    color:var(--text);
     font-size:15px;
 }
 
 .search-box input::placeholder{
-    color:#65736d;
+    color:#8a98a8;
 }
 
 .clear-search{
     display:none;
-    background:#1b2722;
-    color:#aebbb5;
+    background:var(--border);
+    color:var(--muted);
     width:28px;
     height:28px;
     border-radius:50%;
+    font-size:14px;
 }
 
-/* FILTER */
+.clear-search:hover{
+    background:var(--navy);
+    color:var(--white);
+}
+
+/* =========================================================
+   FILTER
+========================================================= */
+
 .filters{
     display:flex;
     gap:8px;
@@ -227,23 +337,42 @@ a{
 
 .filter-btn{
     flex-shrink:0;
-    background:#111815;
-    color:#9daaa4;
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:10px 14px;
+    background:var(--card2);
+    color:var(--muted);
+    border:1.5px solid var(--border);
+    border-radius:6px;
+    padding:9px 14px;
     font-size:12px;
+    font-weight:600;
+    transition:.25s var(--ease);
+}
+
+.filter-btn:hover{
+    border-color:var(--blue);
+    color:var(--blue);
+    transform:translateY(-1px);
+    box-shadow:0 3px 10px rgba(21,101,192,.15);
 }
 
 .filter-btn.active{
-    background:rgba(22,166,106,.16);
-    color:var(--green2);
-    border-color:rgba(32,212,137,.3);
+    background:var(--navy);
+    color:var(--white);
+    border-color:var(--navy);
+    box-shadow:0 3px 12px rgba(11,61,145,.3);
 }
 
-/* SECTION */
+/* =========================================================
+   SECTION
+========================================================= */
+
 .section{
     margin-top:21px;
+    animation:sectionFade .5s var(--ease) both;
+}
+
+@keyframes sectionFade{
+    from{opacity:0;transform:translateY(14px);}
+    to{opacity:1;transform:translateY(0);}
 }
 
 .section-head{
@@ -251,10 +380,19 @@ a{
     justify-content:space-between;
     align-items:center;
     margin-bottom:11px;
+    padding-bottom:8px;
+    border-bottom:2px solid var(--border2);
+    transition:border-color .3s var(--ease);
+}
+
+.section-head:hover{
+    border-bottom-color:var(--blue-light);
 }
 
 .section-head h3{
-    font-size:17px;
+    font-size:16px;
+    color:var(--navy);
+    font-weight:700;
 }
 
 .section-head span{
@@ -262,7 +400,10 @@ a{
     color:var(--muted);
 }
 
-/* STATS */
+/* =========================================================
+   STATS
+========================================================= */
+
 .stats{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -270,21 +411,58 @@ a{
 }
 
 .stat{
-    background:linear-gradient(145deg,var(--card),var(--card2));
+    background:var(--white);
     border:1px solid var(--border);
-    border-radius:17px;
-    padding:13px 8px;
+    border-radius:10px;
+    padding:14px 8px;
     text-align:center;
+    box-shadow:var(--shadow);
+    border-top:3px solid var(--navy);
+    transition:transform .28s var(--ease),
+                box-shadow .28s var(--ease),
+                border-top-color .28s var(--ease);
+    position:relative;
+    overflow:hidden;
+}
+
+.stat:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg,rgba(227,237,249,.6),transparent 60%);
+    opacity:0;
+    transition:opacity .3s var(--ease);
+}
+
+.stat:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow-hover);
+    border-top-color:var(--gold);
+}
+
+.stat:hover:before{
+    opacity:1;
 }
 
 .stat-icon{
     font-size:20px;
     margin-bottom:4px;
+    transition:transform .3s var(--ease);
+    position:relative;
+    z-index:1;
+}
+
+.stat:hover .stat-icon{
+    transform:scale(1.15) rotate(-5deg);
 }
 
 .stat strong{
     display:block;
     font-size:20px;
+    color:var(--navy);
+    font-weight:700;
+    position:relative;
+    z-index:1;
 }
 
 .stat span{
@@ -292,9 +470,15 @@ a{
     color:var(--muted);
     font-size:10px;
     margin-top:3px;
+    font-weight:600;
+    position:relative;
+    z-index:1;
 }
 
-/* SERVICES */
+/* =========================================================
+   SERVICES
+========================================================= */
+
 .services{
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -308,27 +492,67 @@ a{
     align-items:center;
     justify-content:center;
     gap:7px;
-    background:linear-gradient(145deg,var(--card),var(--card2));
+    background:var(--white);
     border:1px solid var(--border);
-    border-radius:17px;
-    color:#dbe4df;
+    border-radius:10px;
+    color:var(--text);
+    box-shadow:var(--shadow);
+    transition:.28s var(--ease);
+    position:relative;
+    overflow:hidden;
+}
+
+.service:before{
+    content:"";
+    position:absolute;
+    top:-50%;
+    left:-50%;
+    width:200%;
+    height:200%;
+    background:radial-gradient(circle,rgba(21,101,192,.14) 0%,transparent 65%);
+    opacity:0;
+    transition:opacity .35s var(--ease);
+}
+
+.service:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow-hover);
+    border-color:var(--blue-light);
+}
+
+.service:hover:before{
+    opacity:1;
 }
 
 .service:active{
-    transform:scale(.96);
+    transform:scale(.95);
 }
 
 .service .icon{
-    font-size:25px;
+    font-size:24px;
+    position:relative;
+    z-index:1;
+    transition:transform .3s var(--ease);
+}
+
+.service:hover .icon{
+    transform:scale(1.18) rotate(-6deg);
 }
 
 .service span{
     color:var(--muted);
     font-size:10px;
     text-align:center;
+    font-weight:600;
+    padding:0 4px;
+    position:relative;
+    z-index:1;
 }
 
-/* RECENT */
+/* =========================================================
+   RECENT
+========================================================= */
+
 .recent-list{
     display:flex;
     gap:8px;
@@ -338,14 +562,27 @@ a{
 .recent-item{
     flex-shrink:0;
     padding:9px 12px;
-    border-radius:12px;
-    background:#111815;
+    border-radius:6px;
+    background:var(--white);
     border:1px solid var(--border);
-    color:#aebbb5;
+    color:var(--muted);
     font-size:11px;
+    font-weight:600;
+    transition:.25s var(--ease);
 }
 
-/* RECORDS */
+.recent-item:hover{
+    background:var(--blue-light);
+    color:var(--navy);
+    border-color:var(--blue);
+    transform:translateY(-2px);
+    box-shadow:0 4px 12px rgba(21,101,192,.15);
+}
+
+/* =========================================================
+   RECORDS
+========================================================= */
+
 #recordsSection{
     scroll-margin-top:82px;
 }
@@ -363,23 +600,43 @@ a{
 
 .record{
     position:relative;
-    background:
-    linear-gradient(145deg,rgba(255,255,255,.025),rgba(255,255,255,.008)),
-    var(--card);
+    background:var(--white);
     border:1px solid var(--border);
-    border-radius:19px;
+    border-radius:10px;
     padding:14px;
     overflow:hidden;
+    box-shadow:var(--shadow);
+    border-left:5px solid var(--navy);
+    transition:transform .3s var(--ease),
+                box-shadow .3s var(--ease),
+                border-left-color .3s var(--ease);
+    animation:cardIn .45s var(--ease) both;
+}
+
+@keyframes cardIn{
+    from{opacity:0;transform:translateY(14px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+.record:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--shadow-hover);
+    border-left-color:var(--gold);
 }
 
 .record:before{
     content:"";
     position:absolute;
-    left:0;
     top:0;
-    bottom:0;
-    width:3px;
-    background:linear-gradient(var(--green2),var(--gold));
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(90deg,transparent,rgba(227,237,249,.5),transparent);
+    transition:left .7s var(--ease);
+}
+
+.record:hover:before{
+    left:100%;
 }
 
 .record-top{
@@ -387,22 +644,27 @@ a{
     align-items:flex-start;
     justify-content:space-between;
     gap:8px;
+    position:relative;
+    z-index:1;
 }
 
 .record-title{
-    padding-left:7px;
+    padding-left:4px;
 }
 
 .serial{
     display:inline-block;
-    color:var(--gold2);
+    color:var(--gold);
     font-size:12px;
+    font-weight:700;
     margin-bottom:4px;
 }
 
 .record-title h4{
     font-size:15px;
     line-height:1.35;
+    color:var(--navy);
+    font-weight:700;
 }
 
 .record-title p{
@@ -414,14 +676,32 @@ a{
 .fav-btn{
     width:36px;
     height:36px;
-    border-radius:12px;
-    background:#19211d;
-    color:#76837d;
+    border-radius:8px;
+    background:var(--card2);
+    color:#b0bcc8;
     font-size:19px;
+    border:1px solid var(--border);
+    transition:.25s var(--ease);
+}
+
+.fav-btn:hover{
+    background:var(--gold-light);
+    color:var(--gold2);
+    border-color:var(--gold2);
+    transform:scale(1.08) rotate(6deg);
 }
 
 .fav-btn.active{
     color:var(--gold2);
+    background:var(--gold-light);
+    border-color:var(--gold2);
+    animation:starPop .35s var(--ease);
+}
+
+@keyframes starPop{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.25) rotate(12deg);}
+    100%{transform:scale(1);}
 }
 
 .data-grid{
@@ -429,27 +709,40 @@ a{
     grid-template-columns:1fr 1fr;
     gap:8px;
     margin-top:13px;
+    position:relative;
+    z-index:1;
 }
 
 .data-box{
-    background:#0b100e;
-    border:1px solid rgba(255,255,255,.06);
-    border-radius:12px;
-    padding:9px;
+    background:var(--card2);
+    border:1px solid var(--border2);
+    border-radius:8px;
+    padding:10px;
+    transition:.25s var(--ease);
+}
+
+.data-box:hover{
+    background:var(--blue-light);
+    border-color:var(--blue);
+    transform:translateY(-1px);
 }
 
 .data-box small{
     display:block;
-    color:#65736d;
+    color:var(--muted);
     font-size:9px;
     margin-bottom:4px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.5px;
 }
 
 .data-box strong{
     display:block;
-    color:#e5ece8;
+    color:var(--text);
     font-size:13px;
     word-break:break-word;
+    font-weight:700;
 }
 
 .pdf-row{
@@ -457,67 +750,107 @@ a{
     align-items:center;
     justify-content:space-between;
     margin-top:11px;
+    position:relative;
+    z-index:1;
 }
 
 .pdf-status{
     font-size:11px;
     color:var(--muted);
+    font-weight:600;
 }
 
 .pdf-status.ok{
-    color:var(--green2);
+    color:var(--green);
 }
 
 .record-actions{
     display:flex;
     gap:7px;
     margin-top:11px;
+    position:relative;
+    z-index:1;
 }
 
 .btn{
     flex:1;
     min-height:39px;
-    border-radius:11px;
+    border-radius:7px;
     padding:8px 10px;
     font-size:12px;
-    background:#19211d;
-    color:#d9e2dd;
-    border:1px solid rgba(255,255,255,.07);
+    font-weight:700;
+    background:var(--card2);
+    color:var(--text);
+    border:1.5px solid var(--border);
+    transition:.25s var(--ease);
+}
+
+.btn:hover:not(:disabled){
+    transform:translateY(-2px);
+    box-shadow:0 6px 16px rgba(11,61,145,.15);
 }
 
 .btn.primary{
-    background:linear-gradient(135deg,#159a63,#0d744b);
-    color:#fff;
-    border:0;
+    background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);
+    color:var(--white);
+    border:1.5px solid var(--navy);
+    box-shadow:0 2px 8px rgba(11,61,145,.25);
+}
+
+.btn.primary:hover:not(:disabled){
+    background:linear-gradient(135deg,var(--navy2) 0%,var(--navy) 100%);
+    box-shadow:0 6px 20px rgba(11,61,145,.35);
 }
 
 .btn.gold{
-    background:rgba(216,181,106,.12);
-    color:var(--gold2);
-    border-color:rgba(216,181,106,.2);
+    background:var(--gold-light);
+    color:var(--gold);
+    border-color:var(--gold2);
+}
+
+.btn.gold:hover:not(:disabled){
+    background:var(--gold2);
+    color:var(--white);
+    border-color:var(--gold2);
+    box-shadow:0 6px 18px rgba(184,134,11,.3);
 }
 
 .btn:disabled{
     opacity:.45;
+    cursor:not-allowed;
 }
 
-/* EMPTY */
+/* =========================================================
+   EMPTY
+========================================================= */
+
 .empty{
     text-align:center;
     padding:38px 20px;
-    border:1px dashed rgba(255,255,255,.1);
-    border-radius:20px;
-    background:#0d1210;
+    border:1.5px dashed var(--border);
+    border-radius:10px;
+    background:var(--white);
+    transition:.3s var(--ease);
+    animation:cardIn .45s var(--ease) both;
+}
+
+.empty:hover{
+    border-color:var(--blue);
+    background:var(--card2);
 }
 
 .empty .big{
     font-size:38px;
     margin-bottom:10px;
+    display:inline-block;
+    animation:floatBlob 3s ease-in-out infinite;
 }
 
 .empty h4{
     font-size:15px;
     margin-bottom:5px;
+    color:var(--navy);
+    font-weight:700;
 }
 
 .empty p{
@@ -528,27 +861,52 @@ a{
 
 .retry{
     margin-top:13px;
-    background:#17231e;
-    color:var(--green2);
-    border:1px solid rgba(32,212,137,.2);
-    border-radius:10px;
-    padding:9px 15px;
+    background:var(--navy);
+    color:var(--white);
+    border:0;
+    border-radius:7px;
+    padding:10px 18px;
     font-size:12px;
+    font-weight:700;
+    box-shadow:0 2px 8px rgba(11,61,145,.25);
 }
 
-/* ADMIN OPEN */
+.retry:hover{
+    background:var(--navy2);
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(11,61,145,.35);
+}
+
+/* =========================================================
+   ADMIN OPEN
+========================================================= */
+
 .admin-open{
     width:100%;
     margin-top:20px;
     padding:13px;
-    border-radius:14px;
-    background:#111815;
-    color:var(--gold2);
-    border:1px solid rgba(216,181,106,.15);
+    border-radius:8px;
+    background:var(--white);
+    color:var(--navy);
+    border:1.5px solid var(--border);
     font-size:13px;
+    font-weight:700;
+    box-shadow:var(--shadow);
+    transition:.25s var(--ease);
 }
 
-/* MODAL BASE */
+.admin-open:hover{
+    background:var(--navy);
+    color:var(--white);
+    border-color:var(--navy);
+    transform:translateY(-2px);
+    box-shadow:0 8px 22px rgba(11,61,145,.3);
+}
+
+/* =========================================================
+   MODAL BASE
+========================================================= */
+
 .modal{
     position:fixed;
     inset:0;
@@ -556,23 +914,36 @@ a{
     display:none;
     align-items:flex-end;
     justify-content:center;
-    background:rgba(0,0,0,.72);
-    backdrop-filter:blur(7px);
+    background:rgba(11,35,72,.55);
+    backdrop-filter:blur(4px);
 }
 
 .modal.show{
     display:flex;
+    animation:modalFade .3s var(--ease);
+}
+
+@keyframes modalFade{
+    from{opacity:0;}
+    to{opacity:1;}
 }
 
 .modal-card{
     width:min(100%,620px);
     max-height:92vh;
     overflow-y:auto;
-    background:#101613;
+    background:var(--white);
     border:1px solid var(--border);
-    border-radius:24px 24px 0 0;
+    border-radius:16px 16px 0 0;
     padding:17px;
-    box-shadow:0 -20px 70px rgba(0,0,0,.45);
+    box-shadow:0 -8px 40px rgba(11,61,145,.25);
+    border-top:4px solid var(--navy);
+    animation:modalSlide .35s var(--ease);
+}
+
+@keyframes modalSlide{
+    from{transform:translateY(30px);opacity:0;}
+    to{transform:translateY(0);opacity:1;}
 }
 
 .modal-head{
@@ -580,22 +951,38 @@ a{
     justify-content:space-between;
     align-items:center;
     margin-bottom:17px;
+    padding-bottom:12px;
+    border-bottom:2px solid var(--border2);
 }
 
 .modal-head h3{
-    font-size:19px;
+    font-size:18px;
+    color:var(--navy);
+    font-weight:700;
 }
 
 .close{
     width:34px;
     height:34px;
-    border-radius:50%;
-    background:#1b2520;
-    color:#c8d2cd;
+    border-radius:8px;
+    background:var(--card2);
+    color:var(--muted);
     font-size:19px;
+    border:1px solid var(--border);
+    font-weight:700;
 }
 
-/* BOOKING */
+.close:hover{
+    background:var(--danger-light);
+    color:var(--danger);
+    border-color:var(--danger);
+    transform:rotate(90deg);
+}
+
+/* =========================================================
+   BOOKING
+========================================================= */
+
 #bookingModal{
     align-items:center !important;
     justify-content:center !important;
@@ -607,24 +994,19 @@ a{
     width:min(100%,460px);
     max-height:94vh;
     overflow-y:auto;
-    border-radius:27px !important;
+    border-radius:16px !important;
     padding:0 !important;
-    background:
-    linear-gradient(145deg,
-    rgba(22,166,106,.08),
-    rgba(216,181,106,.04),
-    #101613);
-    border:1px solid rgba(255,255,255,.11);
-    box-shadow:
-    0 25px 90px rgba(0,0,0,.72),
-    0 0 0 1px rgba(255,255,255,.025);
-    animation:bookingIn .28s ease;
+    background:var(--white);
+    border:1px solid var(--border);
+    border-top:5px solid var(--navy);
+    box-shadow:0 20px 60px rgba(11,61,145,.3);
+    animation:bookingIn .4s var(--ease);
 }
 
 @keyframes bookingIn{
     from{
         opacity:0;
-        transform:translateY(25px) scale(.95);
+        transform:translateY(25px) scale(.94);
     }
     to{
         opacity:1;
@@ -635,24 +1017,23 @@ a{
 .booking-header{
     position:relative;
     overflow:hidden;
-    padding:24px 20px 21px;
-    background:
-    linear-gradient(145deg,
-    rgba(22,166,106,.24),
-    rgba(216,181,106,.08),
-    rgba(10,15,13,.3));
-    border-bottom:1px solid rgba(255,255,255,.08);
+    padding:22px 20px 20px;
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 60%,#082459 100%);
+    border-bottom:3px solid var(--gold);
+    background-size:200% 200%;
+    animation:topbarShift 8s ease infinite;
 }
 
 .booking-header:after{
     content:"";
     position:absolute;
-    width:160px;
-    height:160px;
-    right:-70px;
-    top:-80px;
+    width:140px;
+    height:140px;
+    right:-60px;
+    top:-70px;
     border-radius:50%;
-    background:rgba(32,212,137,.09);
+    background:rgba(255,255,255,.08);
+    animation:floatBlob 6s ease-in-out infinite;
 }
 
 .booking-header-top{
@@ -670,47 +1051,62 @@ a{
 }
 
 .booking-icon{
-    width:52px;
-    height:52px;
+    width:50px;
+    height:50px;
     flex-shrink:0;
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:17px;
-    background:linear-gradient(145deg,#16a66a,#087145);
-    box-shadow:0 10px 28px rgba(22,166,106,.24);
-    font-size:27px;
+    border-radius:10px;
+    background:var(--white);
+    box-shadow:0 3px 10px rgba(0,0,0,.2);
+    font-size:26px;
+    transition:transform .3s var(--ease);
+}
+
+.booking-icon:hover{
+    transform:rotate(-8deg) scale(1.08);
 }
 
 .booking-title small{
     display:block;
     color:var(--gold2);
     font-size:8px;
-    letter-spacing:1.7px;
+    letter-spacing:1.6px;
     margin-bottom:4px;
+    font-weight:700;
 }
 
 .booking-title h2{
-    font-size:21px;
+    font-size:20px;
+    color:var(--white);
+    font-weight:700;
 }
 
 .booking-close{
-    width:39px;
-    height:39px;
-    border-radius:13px;
-    background:rgba(8,14,11,.72);
-    color:#d7e0dc;
-    border:1px solid rgba(255,255,255,.09);
+    width:38px;
+    height:38px;
+    border-radius:8px;
+    background:rgba(255,255,255,.15);
+    color:var(--white);
+    border:1px solid rgba(255,255,255,.25);
     font-size:22px;
+    font-weight:700;
+    transition:.3s var(--ease);
+}
+
+.booking-close:hover{
+    background:rgba(255,255,255,.28);
+    transform:rotate(90deg);
 }
 
 .booking-subtitle{
     position:relative;
     z-index:2;
-    margin-top:16px;
-    color:#9aa9a2;
+    margin-top:15px;
+    color:rgba(255,255,255,.85);
     font-size:11px;
-    line-height:1.6;
+    line-height:1.7;
 }
 
 .booking-status{
@@ -720,24 +1116,27 @@ a{
     align-items:center;
     gap:6px;
     margin-top:12px;
-    padding:7px 10px;
-    border-radius:10px;
-    background:rgba(32,212,137,.08);
-    border:1px solid rgba(32,212,137,.13);
-    color:var(--green2);
+    padding:6px 11px;
+    border-radius:6px;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.2);
+    color:#a5e8b8;
     font-size:9px;
+    font-weight:700;
 }
 
 .booking-status-dot{
     width:7px;
     height:7px;
     border-radius:50%;
-    background:var(--green2);
-    box-shadow:0 0 8px rgba(32,212,137,.6);
+    background:#4caf50;
+    box-shadow:0 0 8px rgba(76,175,80,.9);
+    animation:pulseDot 1.6s ease-in-out infinite;
 }
 
 .booking-body{
     padding:18px;
+    background:var(--card2);
 }
 
 .booking-section-title{
@@ -749,14 +1148,17 @@ a{
 
 .booking-section-title div:first-child small{
     display:block;
-    color:var(--green2);
+    color:var(--blue);
     font-size:8px;
     letter-spacing:1.4px;
     margin-bottom:3px;
+    font-weight:700;
 }
 
 .booking-section-title h3{
     font-size:15px;
+    color:var(--navy);
+    font-weight:700;
 }
 
 .booking-step{
@@ -765,11 +1167,19 @@ a{
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:10px;
-    background:#0b110e;
-    border:1px solid rgba(216,181,106,.12);
-    color:var(--gold2);
+    border-radius:6px;
+    background:var(--white);
+    border:1.5px solid var(--border);
+    color:var(--navy);
     font-size:10px;
+    font-weight:700;
+    transition:.25s var(--ease);
+}
+
+.booking-field:hover .booking-step{
+    background:var(--navy);
+    color:var(--white);
+    border-color:var(--navy);
 }
 
 .booking-fields{
@@ -784,9 +1194,9 @@ a{
 .booking-field label{
     display:block;
     margin-bottom:7px;
-    color:#aebbb5;
+    color:var(--text);
     font-size:11px;
-    font-weight:600;
+    font-weight:700;
 }
 
 .booking-input-wrap{
@@ -795,15 +1205,20 @@ a{
     gap:9px;
     min-height:51px;
     padding:7px 12px;
-    border-radius:14px;
-    background:#090e0c;
-    border:1px solid rgba(255,255,255,.09);
-    transition:.2s;
+    border-radius:8px;
+    background:var(--white);
+    border:1.5px solid var(--border);
+    transition:.25s var(--ease);
+}
+
+.booking-input-wrap:hover{
+    border-color:#b8c8e0;
 }
 
 .booking-input-wrap:focus-within{
-    border-color:rgba(32,212,137,.5);
-    box-shadow:0 0 0 3px rgba(32,212,137,.06);
+    border-color:var(--blue);
+    box-shadow:0 0 0 4px rgba(21,101,192,.12);
+    transform:translateY(-1px);
 }
 
 .booking-field-icon{
@@ -813,9 +1228,14 @@ a{
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:9px;
-    background:#151d19;
+    border-radius:6px;
+    background:var(--blue-light);
     font-size:15px;
+    transition:transform .3s var(--ease);
+}
+
+.booking-input-wrap:focus-within .booking-field-icon{
+    transform:scale(1.12) rotate(-6deg);
 }
 
 .booking-input-wrap input,
@@ -824,7 +1244,7 @@ a{
     background:transparent;
     border:0;
     outline:0;
-    color:#fff;
+    color:var(--text);
     font-size:13px;
 }
 
@@ -836,7 +1256,7 @@ a{
 
 .booking-input-wrap input::placeholder,
 .booking-input-wrap textarea::placeholder{
-    color:#56645e;
+    color:#94a3b4;
 }
 
 .booking-work-wrap{
@@ -853,9 +1273,15 @@ a{
     gap:10px;
     padding:12px;
     margin-top:15px;
-    border-radius:14px;
-    background:rgba(216,181,106,.055);
-    border:1px solid rgba(216,181,106,.11);
+    border-radius:8px;
+    background:var(--gold-light);
+    border:1px solid #e8d9a8;
+    transition:.25s var(--ease);
+}
+
+.booking-info-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 16px rgba(184,134,11,.18);
 }
 
 .booking-info-icon{
@@ -865,40 +1291,64 @@ a{
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:10px;
-    background:rgba(216,181,106,.09);
-    color:var(--gold2);
+    border-radius:6px;
+    background:var(--white);
+    color:var(--gold);
     font-size:16px;
+    border:1px solid #e8d9a8;
 }
 
 .booking-info-card strong{
     display:block;
-    color:var(--gold2);
+    color:var(--gold);
     font-size:10px;
     margin-bottom:3px;
+    font-weight:700;
 }
 
 .booking-info-card p{
-    color:#7f8d87;
+    color:#7a6a3a;
     font-size:9px;
-    line-height:1.6;
+    line-height:1.7;
 }
 
 .booking-submit{
     width:100%;
-    min-height:55px;
+    min-height:54px;
     display:flex;
     align-items:center;
     justify-content:center;
     gap:10px;
     margin-top:16px;
-    border-radius:15px;
-    background:linear-gradient(135deg,#16a66a,#087145);
-    color:#fff;
+    border-radius:8px;
+    background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);
+    color:var(--white);
     font-size:14px;
     font-weight:700;
-    box-shadow:0 12px 32px rgba(22,166,106,.22);
-    transition:.2s;
+    box-shadow:0 4px 16px rgba(11,61,145,.32);
+    transition:.3s var(--ease);
+    position:relative;
+    overflow:hidden;
+}
+
+.booking-submit:before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);
+    transition:left .6s var(--ease);
+}
+
+.booking-submit:hover:before{
+    left:100%;
+}
+
+.booking-submit:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 28px rgba(11,61,145,.42);
 }
 
 .booking-submit:active{
@@ -913,27 +1363,38 @@ a{
     margin-left:auto;
     margin-right:13px;
     font-size:19px;
+    transition:transform .3s var(--ease);
+}
+
+.booking-submit:hover .booking-submit-arrow{
+    transform:translateX(5px);
 }
 
 .booking-footer{
     text-align:center;
-    padding:0 18px 18px;
+    padding:14px 18px 18px;
+    background:var(--white);
+    border-top:1px solid var(--border2);
 }
 
 .booking-footer span{
-    color:#53615b;
-    font-size:8px;
-    letter-spacing:1.8px;
+    color:var(--navy);
+    font-size:9px;
+    letter-spacing:1.6px;
+    font-weight:700;
 }
 
 .booking-footer small{
     display:block;
-    color:#35413c;
+    color:var(--muted);
     font-size:8px;
     margin-top:3px;
 }
 
-/* ADMIN LOGIN */
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
+
 #adminModal{
     align-items:center !important;
     justify-content:center !important;
@@ -945,24 +1406,19 @@ a{
     width:min(100%,420px);
     max-height:90vh;
     overflow-y:auto;
-    border-radius:26px !important;
+    border-radius:16px !important;
     padding:25px 21px !important;
-    background:
-    linear-gradient(145deg,
-    rgba(22,166,106,.08),
-    rgba(216,181,106,.04),
-    #101613);
-    border:1px solid rgba(255,255,255,.11);
-    box-shadow:
-    0 25px 80px rgba(0,0,0,.68),
-    0 0 0 1px rgba(255,255,255,.025);
-    animation:adminLoginIn .25s ease;
+    background:var(--white);
+    border:1px solid var(--border);
+    border-top:5px solid var(--navy);
+    box-shadow:0 20px 60px rgba(11,61,145,.3);
+    animation:adminLoginIn .4s var(--ease);
 }
 
 @keyframes adminLoginIn{
     from{
         opacity:0;
-        transform:translateY(18px) scale(.96);
+        transform:translateY(18px) scale(.94);
     }
     to{
         opacity:1;
@@ -973,17 +1429,17 @@ a{
 #adminModal .modal-head{
     margin-bottom:23px;
     padding-bottom:17px;
-    border-bottom:1px solid rgba(255,255,255,.07);
+    border-bottom:2px solid var(--border2);
 }
 
 #adminModal .modal-head h3{
-    font-size:21px;
+    font-size:20px;
 }
 
 #adminModal .close{
     width:38px;
     height:38px;
-    border-radius:50%;
+    border-radius:8px;
     font-size:21px;
 }
 
@@ -993,21 +1449,23 @@ a{
 
 .form-group label{
     display:block;
-    color:#a8b5af;
+    color:var(--text);
     font-size:11px;
     margin-bottom:6px;
+    font-weight:700;
 }
 
 .input,
 .textarea{
     width:100%;
-    background:#090e0c;
-    border:1px solid rgba(255,255,255,.09);
+    background:var(--card2);
+    border:1.5px solid var(--border);
     outline:0;
-    color:#fff;
-    border-radius:12px;
+    color:var(--text);
+    border-radius:8px;
     padding:12px;
     font-size:13px;
+    transition:.25s var(--ease);
 }
 
 .textarea{
@@ -1015,9 +1473,17 @@ a{
     resize:vertical;
 }
 
+.input:hover,
+.textarea:hover{
+    border-color:#b8c8e0;
+}
+
 .input:focus,
 .textarea:focus{
-    border-color:rgba(32,212,137,.45);
+    border-color:var(--blue);
+    box-shadow:0 0 0 4px rgba(21,101,192,.12);
+    background:var(--white);
+    transform:translateY(-1px);
 }
 
 #adminLogin .form-group{
@@ -1025,36 +1491,61 @@ a{
 }
 
 #adminLogin .form-group label{
-    color:#b7c3bd;
+    color:var(--text);
     font-size:13px;
-    font-weight:600;
+    font-weight:700;
     margin-bottom:8px;
 }
 
 #adminLogin .input{
-    min-height:56px;
+    min-height:54px;
     padding:15px 16px;
-    border-radius:14px;
+    border-radius:8px;
     font-size:15px;
+    background:var(--white);
 }
 
 #adminLogin .btn.primary{
     width:100%;
-    min-height:56px;
+    min-height:54px;
     margin-top:5px;
-    border-radius:15px;
+    border-radius:8px;
     font-size:15px;
     font-weight:700;
 }
 
-/* ADMIN */
+/* =========================================================
+   ADMIN
+========================================================= */
+
 .admin-status{
     padding:11px;
-    border-radius:12px;
-    background:#0b110e;
-    color:var(--green2);
+    border-radius:8px;
+    background:var(--green-light);
+    color:var(--green);
     font-size:12px;
     margin-bottom:12px;
+    font-weight:700;
+    border:1px solid #b8e0c8;
+    position:relative;
+    overflow:hidden;
+}
+
+.admin-status:before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(90deg,transparent,rgba(15,157,79,.18),transparent);
+    animation:statusShine 3s ease-in-out infinite;
+}
+
+@keyframes statusShine{
+    0%{left:-100%;}
+    50%{left:100%;}
+    100%{left:100%;}
 }
 
 .admin-stats{
@@ -1066,34 +1557,55 @@ a{
 
 .admin-stat{
     padding:12px;
-    border-radius:14px;
-    background:#151d19;
+    border-radius:8px;
+    background:var(--white);
     border:1px solid var(--border);
+    box-shadow:var(--shadow);
+    border-left:4px solid var(--navy);
+    transition:.28s var(--ease);
+}
+
+.admin-stat:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--shadow-hover);
+    border-left-color:var(--gold);
 }
 
 .admin-stat small{
     display:block;
     color:var(--muted);
     font-size:10px;
+    font-weight:600;
 }
 
 .admin-stat strong{
     display:block;
     margin-top:5px;
     font-size:19px;
+    color:var(--navy);
+    font-weight:700;
 }
 
 .admin-record{
     padding:11px;
-    background:#0b110e;
-    border:1px solid var(--border);
-    border-radius:13px;
+    background:var(--card2);
+    border:1px solid var(--border2);
+    border-radius:8px;
     margin-bottom:7px;
+    transition:.25s var(--ease);
+}
+
+.admin-record:hover{
+    background:var(--white);
+    border-color:var(--blue);
+    transform:translateX(3px);
+    box-shadow:0 4px 14px rgba(21,101,192,.14);
 }
 
 .admin-record-title{
     font-size:12px;
-    font-weight:bold;
+    font-weight:700;
+    color:var(--text);
 }
 
 .admin-record-meta{
@@ -1108,27 +1620,30 @@ a{
     margin-top:8px;
 }
 
-/* DELETE */
+/* =========================================================
+   DELETE
+========================================================= */
+
 #deleteModal{
     z-index:700;
 }
 
-/* CALCULATOR */
+/* =========================================================
+   CALCULATOR
+========================================================= */
+
 .calc-page{
     position:fixed;
     inset:0;
     z-index:500;
     display:none;
     overflow-y:auto;
-    background:
-    radial-gradient(circle at 90% 0%,rgba(32,212,137,.14),transparent 32%),
-    radial-gradient(circle at 0% 30%,rgba(216,181,106,.08),transparent 28%),
-    #080b0a;
+    background:var(--bg);
 }
 
 .calc-page.show{
     display:block;
-    animation:calcPageIn .25s ease;
+    animation:calcPageIn .35s var(--ease);
 }
 
 @keyframes calcPageIn{
@@ -1146,23 +1661,31 @@ a{
     position:sticky;
     top:0;
     z-index:10;
-    height:68px;
+    height:64px;
     display:flex;
     align-items:center;
     padding:10px 14px;
-    background:rgba(8,11,10,.94);
-    backdrop-filter:blur(20px);
-    border-bottom:1px solid rgba(255,255,255,.08);
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 60%,#082459 100%);
+    border-bottom:3px solid var(--gold);
+    box-shadow:0 2px 14px rgba(11,61,145,.28);
+    background-size:200% 200%;
+    animation:topbarShift 8s ease infinite;
 }
 
 .calc-back{
     width:42px;
     height:42px;
-    border-radius:13px;
-    background:#151d19;
-    color:#e5ece8;
+    border-radius:8px;
+    background:rgba(255,255,255,.15);
+    color:var(--white);
     font-size:22px;
-    border:1px solid rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.25);
+    font-weight:700;
+}
+
+.calc-back:hover{
+    background:rgba(255,255,255,.28);
+    transform:translateX(-3px);
 }
 
 .calc-page-title{
@@ -1173,11 +1696,13 @@ a{
 .calc-page-title strong{
     display:block;
     font-size:16px;
+    color:var(--white);
+    font-weight:700;
 }
 
 .calc-page-title span{
     display:block;
-    color:#78867f;
+    color:rgba(255,255,255,.75);
     font-size:9px;
     letter-spacing:1.2px;
     margin-top:3px;
@@ -1189,10 +1714,14 @@ a{
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:13px;
-    background:linear-gradient(145deg,rgba(22,166,106,.2),rgba(216,181,106,.08));
-    border:1px solid rgba(216,181,106,.16);
+    border-radius:8px;
+    background:var(--white);
     font-size:20px;
+    transition:transform .35s var(--ease);
+}
+
+.calc-top-icon:hover{
+    transform:rotate(12deg) scale(1.08);
 }
 
 .calc-container{
@@ -1209,35 +1738,53 @@ a{
     gap:14px;
     padding:20px;
     margin-bottom:14px;
-    border-radius:24px;
-    background:linear-gradient(145deg,rgba(22,166,106,.20),rgba(216,181,106,.08),#111815);
-    border:1px solid rgba(216,181,106,.14);
+    border-radius:10px;
+    background:var(--white);
+    border:1px solid var(--border);
+    border-left:5px solid var(--navy);
+    box-shadow:var(--shadow);
+    transition:.3s var(--ease);
+    animation:cardIn .45s var(--ease) both;
+}
+
+.calc-hero:hover{
+    box-shadow:var(--shadow-hover);
+    transform:translateY(-2px);
 }
 
 .calc-hero-icon{
     position:relative;
     z-index:2;
-    width:58px;
-    height:58px;
+    width:56px;
+    height:56px;
     flex-shrink:0;
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:18px;
-    background:linear-gradient(145deg,#159a63,#0b7049);
-    font-size:29px;
+    border-radius:10px;
+    background:var(--blue-light);
+    font-size:28px;
+    border:1px solid var(--border);
+    transition:transform .35s var(--ease);
+}
+
+.calc-hero:hover .calc-hero-icon{
+    transform:rotate(-8deg) scale(1.08);
 }
 
 .calc-kicker{
-    color:var(--gold2);
+    color:var(--blue);
     font-size:9px;
     letter-spacing:1.6px;
     margin-bottom:4px;
+    font-weight:700;
 }
 
 .calc-hero h2{
-    font-size:24px;
+    font-size:22px;
     margin-bottom:5px;
+    color:var(--navy);
+    font-weight:700;
 }
 
 .calc-hero p{
@@ -1249,9 +1796,17 @@ a{
 .calc-card{
     margin-bottom:12px;
     padding:15px;
-    border-radius:20px;
-    background:linear-gradient(145deg,rgba(255,255,255,.025),rgba(255,255,255,.008)),#111815;
-    border:1px solid rgba(255,255,255,.08);
+    border-radius:10px;
+    background:var(--white);
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+    transition:.3s var(--ease);
+    animation:cardIn .5s var(--ease) both;
+}
+
+.calc-card:hover{
+    box-shadow:var(--shadow-hover);
+    transform:translateY(-2px);
 }
 
 .calc-card-head{
@@ -1259,18 +1814,23 @@ a{
     align-items:center;
     justify-content:space-between;
     margin-bottom:14px;
+    padding-bottom:10px;
+    border-bottom:1.5px solid var(--border2);
 }
 
 .calc-label{
     display:block;
-    color:var(--green2);
+    color:var(--blue);
     font-size:8px;
     letter-spacing:1.5px;
     margin-bottom:4px;
+    font-weight:700;
 }
 
 .calc-card-head h3{
     font-size:15px;
+    color:var(--navy);
+    font-weight:700;
 }
 
 .calc-number{
@@ -1279,19 +1839,36 @@ a{
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:10px;
-    background:#0b110e;
-    color:var(--gold2);
+    border-radius:6px;
+    background:var(--blue-light);
+    color:var(--navy);
     font-size:10px;
+    font-weight:700;
+    border:1px solid var(--border);
+    transition:.28s var(--ease);
+}
+
+.calc-card:hover .calc-number{
+    background:var(--navy);
+    color:var(--white);
+    border-color:var(--navy);
+    transform:rotate(-6deg) scale(1.05);
 }
 
 .land-input-wrap{
     display:flex;
     gap:8px;
     padding:7px;
-    border-radius:15px;
-    background:#090e0c;
-    border:1px solid rgba(255,255,255,.09);
+    border-radius:8px;
+    background:var(--card2);
+    border:1.5px solid var(--border);
+    transition:.25s var(--ease);
+}
+
+.land-input-wrap:focus-within{
+    border-color:var(--blue);
+    box-shadow:0 0 0 4px rgba(21,101,192,.12);
+    background:var(--white);
 }
 
 .land-input-wrap input{
@@ -1300,31 +1877,45 @@ a{
     border:0;
     outline:0;
     background:transparent;
-    color:#fff;
-    font-size:28px;
+    color:var(--text);
+    font-size:26px;
     font-weight:700;
     padding:5px 7px;
 }
 
 .unit-select-wrap select{
     appearance:none;
-    border:0;
+    border:1.5px solid var(--border);
     outline:0;
-    background:#17231e;
-    color:var(--green2);
-    border-radius:11px;
+    background:var(--white);
+    color:var(--navy);
+    border-radius:6px;
     padding:11px 10px;
     font-size:12px;
+    font-weight:700;
+    transition:.25s var(--ease);
+    cursor:pointer;
+}
+
+.unit-select-wrap select:hover{
+    border-color:var(--blue);
+    background:var(--blue-light);
 }
 
 .conversion-preview{
     margin-top:9px;
     padding:9px 11px;
-    border-radius:10px;
-    background:rgba(22,166,106,.07);
-    color:#8fa098;
+    border-radius:6px;
+    background:var(--blue-light);
+    color:var(--navy);
     font-size:10px;
-    line-height:1.6;
+    line-height:1.8;
+    border:1px solid #c5d9f0;
+    transition:.3s var(--ease);
+}
+
+.conversion-preview:hover{
+    background:#d4e4f7;
 }
 
 .children-grid{
@@ -1335,28 +1926,51 @@ a{
 
 .child-box{
     padding:12px;
-    border-radius:16px;
-    background:#0b100e;
-    border:1px solid rgba(255,255,255,.07);
+    border-radius:8px;
+    background:var(--card2);
+    border:1.5px solid var(--border);
+    transition:.3s var(--ease);
 }
 
 .son-box{
-    border-color:rgba(32,212,137,.12);
+    border-color:#a8d5b8;
+    background:var(--green-light);
 }
 
 .daughter-box{
-    border-color:rgba(216,181,106,.12);
+    border-color:#e8d9a8;
+    background:var(--gold-light);
+}
+
+.child-box:hover{
+    transform:translateY(-3px);
+    box-shadow:var(--shadow-hover);
+}
+
+.son-box:hover{
+    border-color:var(--green);
+}
+
+.daughter-box:hover{
+    border-color:var(--gold2);
 }
 
 .child-icon{
-    font-size:25px;
+    font-size:24px;
     margin-bottom:7px;
+    transition:transform .3s var(--ease);
+    display:inline-block;
+}
+
+.child-box:hover .child-icon{
+    transform:scale(1.18) rotate(-6deg);
 }
 
 .child-info span{
     display:block;
     font-size:13px;
-    font-weight:bold;
+    font-weight:700;
+    color:var(--text);
 }
 
 .child-info small{
@@ -1377,17 +1991,32 @@ a{
 .counter button{
     width:31px;
     height:31px;
-    border-radius:10px;
-    background:#17211d;
-    color:#dce6e1;
+    border-radius:7px;
+    background:var(--white);
+    color:var(--navy);
     font-size:19px;
-    border:1px solid rgba(255,255,255,.07);
+    border:1.5px solid var(--border);
+    font-weight:700;
+    transition:.2s var(--ease);
+}
+
+.counter button:hover{
+    background:var(--navy);
+    color:var(--white);
+    border-color:var(--navy);
+    transform:scale(1.1);
+}
+
+.counter button:active{
+    transform:scale(.9);
 }
 
 .counter strong{
     min-width:28px;
     text-align:center;
     font-size:18px;
+    color:var(--navy);
+    font-weight:700;
 }
 
 .share-rule,
@@ -1395,10 +2024,17 @@ a{
     display:flex;
     gap:10px;
     padding:11px;
-    border-radius:13px;
-    background:rgba(216,181,106,.06);
-    border:1px solid rgba(216,181,106,.12);
+    border-radius:8px;
+    background:var(--gold-light);
+    border:1px solid #e8d9a8;
     margin-top:10px;
+    transition:.25s var(--ease);
+}
+
+.share-rule:hover,
+.notice-box:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 14px rgba(184,134,11,.16);
 }
 
 .rule-icon,
@@ -1408,51 +2044,94 @@ a{
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:10px;
-    background:rgba(216,181,106,.1);
+    border-radius:6px;
+    background:var(--white);
     font-size:17px;
     flex-shrink:0;
+    border:1px solid #e8d9a8;
 }
 
 .share-rule strong{
     display:block;
     font-size:11px;
-    color:var(--gold2);
+    color:var(--gold);
+    font-weight:700;
 }
 
 .share-rule p,
 .notice-box p{
     margin-top:3px;
-    color:#85928c;
+    color:#7a6a3a;
     font-size:9px;
     line-height:1.7;
 }
 
 .calculate-main{
     width:100%;
-    min-height:53px;
+    min-height:52px;
     display:flex;
     align-items:center;
     gap:9px;
     padding:10px 15px;
-    border-radius:16px;
-    background:linear-gradient(135deg,#16a66a,#087145);
-    color:#fff;
+    border-radius:8px;
+    background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);
+    color:var(--white);
     font-size:14px;
-    font-weight:bold;
+    font-weight:700;
+    box-shadow:0 4px 16px rgba(11,61,145,.3);
+    transition:.3s var(--ease);
+    position:relative;
+    overflow:hidden;
+}
+
+.calculate-main:before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);
+    transition:left .6s var(--ease);
+}
+
+.calculate-main:hover:before{
+    left:100%;
+}
+
+.calculate-main:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 28px rgba(11,61,145,.42);
+}
+
+.calculate-main:active{
+    transform:scale(.98);
 }
 
 .calculate-arrow{
     margin-left:auto;
     font-size:21px;
+    transition:transform .3s var(--ease);
+}
+
+.calculate-main:hover .calculate-arrow{
+    transform:translateX(5px);
 }
 
 .inherit-result{
     margin-top:14px;
     padding:16px;
-    border-radius:21px;
-    background:linear-gradient(145deg,rgba(22,166,106,.12),rgba(216,181,106,.07),#111815);
-    border:1px solid rgba(32,212,137,.16);
+    border-radius:10px;
+    background:var(--white);
+    border:1px solid var(--border);
+    border-top:4px solid var(--green);
+    box-shadow:var(--shadow2);
+    animation:resultIn .5s var(--ease);
+}
+
+@keyframes resultIn{
+    from{opacity:0;transform:translateY(18px) scale(.97);}
+    to{opacity:1;transform:translateY(0) scale(1);}
 }
 
 .result-head{
@@ -1460,17 +2139,22 @@ a{
     align-items:center;
     justify-content:space-between;
     margin-bottom:14px;
+    padding-bottom:10px;
+    border-bottom:1.5px solid var(--border2);
 }
 
 .result-head span{
-    color:var(--green2);
+    color:var(--green);
     font-size:8px;
     letter-spacing:1.4px;
+    font-weight:700;
 }
 
 .result-head h3{
     font-size:16px;
     margin-top:3px;
+    color:var(--navy);
+    font-weight:700;
 }
 
 .result-check{
@@ -1480,29 +2164,46 @@ a{
     align-items:center;
     justify-content:center;
     border-radius:50%;
-    background:rgba(32,212,137,.13);
-    color:var(--green2);
+    background:var(--green-light);
+    color:var(--green);
+    font-weight:700;
+    border:1.5px solid #b8e0c8;
+    animation:checkPop .5s var(--ease);
+}
+
+@keyframes checkPop{
+    0%{transform:scale(0) rotate(-180deg);}
+    60%{transform:scale(1.15) rotate(10deg);}
+    100%{transform:scale(1) rotate(0);}
 }
 
 .total-land-result{
     text-align:center;
     padding:14px;
-    border-radius:15px;
-    background:#0a0f0d;
-    border:1px solid rgba(255,255,255,.07);
+    border-radius:8px;
+    background:var(--card2);
+    border:1px solid var(--border2);
+    transition:.28s var(--ease);
+}
+
+.total-land-result:hover{
+    background:var(--blue-light);
+    border-color:var(--blue);
 }
 
 .total-land-result small{
     display:block;
     color:var(--muted);
     font-size:10px;
+    font-weight:600;
 }
 
 .total-land-result strong{
     display:block;
-    color:var(--gold2);
-    font-size:25px;
+    color:var(--navy);
+    font-size:24px;
     margin-top:4px;
+    font-weight:700;
 }
 
 .share-summary{
@@ -1515,21 +2216,31 @@ a{
 .summary-item{
     padding:10px 5px;
     text-align:center;
-    border-radius:12px;
-    background:#0b100e;
-    border:1px solid rgba(255,255,255,.06);
+    border-radius:8px;
+    background:var(--card2);
+    border:1px solid var(--border2);
+    transition:.28s var(--ease);
+}
+
+.summary-item:hover{
+    background:var(--blue-light);
+    border-color:var(--blue);
+    transform:translateY(-2px);
 }
 
 .summary-item small{
     display:block;
     color:var(--muted);
     font-size:9px;
+    font-weight:600;
 }
 
 .summary-item strong{
     display:block;
     margin-top:4px;
     font-size:17px;
+    color:var(--navy);
+    font-weight:700;
 }
 
 .children-result{
@@ -1543,9 +2254,18 @@ a{
     align-items:center;
     justify-content:space-between;
     padding:12px;
-    border-radius:13px;
-    background:#0b100e;
-    border:1px solid rgba(255,255,255,.06);
+    border-radius:8px;
+    background:var(--card2);
+    border:1px solid var(--border2);
+    transition:.25s var(--ease);
+    animation:cardIn .4s var(--ease) both;
+}
+
+.child-result-row:hover{
+    background:var(--white);
+    border-color:var(--blue);
+    transform:translateX(3px);
+    box-shadow:0 4px 14px rgba(21,101,192,.13);
 }
 
 .child-result-left{
@@ -1560,14 +2280,21 @@ a{
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:10px;
-    background:#151d19;
+    border-radius:6px;
+    background:var(--white);
+    border:1px solid var(--border);
+    transition:transform .3s var(--ease);
+}
+
+.child-result-row:hover .child-result-icon{
+    transform:scale(1.12) rotate(-6deg);
 }
 
 .child-result-left span{
     display:block;
     font-size:11px;
-    font-weight:bold;
+    font-weight:700;
+    color:var(--text);
 }
 
 .child-result-left small,
@@ -1584,29 +2311,60 @@ a{
 
 .child-result-value strong{
     display:block;
-    color:var(--green2);
+    color:var(--navy) !important;
     font-size:14px;
+    font-weight:700;
+}
+
+#resultTotalLand{
+    color:var(--navy) !important;
+}
+
+.result-katha,
+.result-dhul,
+.result-sqft{
+    color:var(--blue) !important;
+    font-size:10px !important;
+    margin-top:3px !important;
+}
+
+.result-total-katha,
+.result-total-dhul,
+.result-total-sqft{
+    color:var(--blue) !important;
+    font-size:11px !important;
+    margin-top:4px !important;
 }
 
 .result-note{
     margin-top:10px;
     padding:10px;
-    border-radius:11px;
-    background:rgba(216,181,106,.06);
-    color:#9b9d89;
+    border-radius:6px;
+    background:var(--gold-light);
+    color:#7a6a3a;
     font-size:9px;
-    line-height:1.6;
+    line-height:1.7;
+    border:1px solid #e8d9a8;
 }
 
 .calc-reset{
     width:100%;
     margin-top:10px;
     min-height:43px;
-    border-radius:13px;
-    background:#111815;
-    color:#aebbb5;
-    border:1px solid rgba(255,255,255,.08);
+    border-radius:8px;
+    background:var(--white);
+    color:var(--muted);
+    border:1.5px solid var(--border);
     font-size:11px;
+    font-weight:700;
+}
+
+.calc-reset:hover{
+    background:var(--navy);
+    color:var(--white);
+    border-color:var(--navy);
+    transform:translateY(-2px);
+    box-shadow:0 6px 18px rgba(11,61,145,.24);
 }
 
 .calc-footer{
@@ -1616,17 +2374,21 @@ a{
 
 .calc-footer span{
     display:block;
-    color:#53615b;
+    color:var(--navy);
     font-size:9px;
     letter-spacing:2px;
+    font-weight:700;
 }
 
 .calc-footer small{
-    color:#35413c;
+    color:var(--muted);
     font-size:8px;
 }
 
-/* LOADER */
+/* =========================================================
+   LOADER
+========================================================= */
+
 .loader-overlay{
     position:fixed;
     inset:0;
@@ -1634,29 +2396,33 @@ a{
     display:none;
     align-items:center;
     justify-content:center;
-    background:rgba(5,8,7,.78);
-    backdrop-filter:blur(8px);
+    background:rgba(11,35,72,.45);
+    backdrop-filter:blur(4px);
 }
 
 .loader-overlay.show{
     display:flex;
+    animation:modalFade .25s var(--ease);
 }
 
 .loader-card{
     width:190px;
     text-align:center;
     padding:23px;
-    background:#111815;
+    background:var(--white);
     border:1px solid var(--border);
-    border-radius:20px;
+    border-radius:10px;
+    box-shadow:0 20px 60px rgba(11,61,145,.25);
+    border-top:4px solid var(--navy);
+    animation:modalSlide .35s var(--ease);
 }
 
 .spinner{
     width:39px;
     height:39px;
     margin:auto;
-    border:3px solid #26322d;
-    border-top-color:var(--green2);
+    border:3px solid var(--border);
+    border-top-color:var(--navy);
     border-radius:50%;
     animation:spin .8s linear infinite;
 }
@@ -1665,30 +2431,36 @@ a{
     color:var(--muted);
     margin-top:11px;
     font-size:12px;
+    font-weight:600;
 }
 
 @keyframes spin{
     to{transform:rotate(360deg)}
 }
 
-/* TOAST */
+/* =========================================================
+   TOAST
+========================================================= */
+
 .toast{
     position:fixed;
     z-index:1000;
     left:50%;
-    bottom:85px;
+    bottom:94px;
     transform:translateX(-50%) translateY(20px);
-    background:#17211d;
-    border:1px solid rgba(255,255,255,.1);
-    color:#edf3ef;
+    background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);
+    border:1px solid var(--navy2);
+    color:var(--white);
     padding:11px 15px;
-    border-radius:13px;
+    border-radius:8px;
     font-size:12px;
+    font-weight:600;
     opacity:0;
     pointer-events:none;
-    transition:.25s;
+    transition:.3s var(--ease);
     max-width:90%;
     text-align:center;
+    box-shadow:0 6px 24px rgba(11,61,145,.4);
 }
 
 .toast.show{
@@ -1696,11 +2468,14 @@ a{
     transform:translateX(-50%) translateY(0);
 }
 
-/* WHATSAPP */
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
 .whatsapp{
     position:fixed;
     right:15px;
-    bottom:77px;
+    bottom:83px;
     z-index:70;
     width:51px;
     height:51px;
@@ -1708,44 +2483,116 @@ a{
     align-items:center;
     justify-content:center;
     border-radius:50%;
-    background:#20c76a;
-    box-shadow:0 10px 30px rgba(32,199,106,.3);
+    background:linear-gradient(135deg,#25d366,#128c7e);
+    box-shadow:0 6px 22px rgba(37,211,102,.4);
     font-size:27px;
+    transition:.3s var(--ease);
+    animation:waPulse 2.6s ease-in-out infinite;
 }
 
-/* BOTTOM NAV */
+@keyframes waPulse{
+    0%,100%{box-shadow:0 6px 22px rgba(37,211,102,.4);}
+    50%{box-shadow:0 6px 30px rgba(37,211,102,.7),0 0 0 10px rgba(37,211,102,.08);}
+}
+
+.whatsapp:hover{
+    transform:scale(1.12) rotate(8deg);
+}
+
+/* =========================================================
+   PREMIUM BOTTOM NAV
+========================================================= */
+
 .bottom-nav{
     position:fixed;
-    left:0;
-    right:0;
-    bottom:0;
+    left:9px;
+    right:9px;
+    bottom:8px;
     z-index:60;
-    height:67px;
+    height:72px;
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    background:rgba(10,14,12,.96);
-    border-top:1px solid var(--border);
-    backdrop-filter:blur(18px);
+    padding:5px;
+    border-radius:10px;
+    background:var(--white);
+    border:1px solid var(--border);
+    box-shadow:0 6px 24px rgba(11,61,145,.15);
+    backdrop-filter:blur(10px);
 }
 
 .nav-btn{
+    position:relative;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
     gap:3px;
-    background:none;
-    color:#68756f;
-    font-size:10px;
-}
-
-.nav-btn.active{
-    color:var(--green2);
+    background:transparent;
+    color:var(--muted);
+    font-size:9px;
+    font-weight:700;
+    border-radius:8px;
+    transition:.25s var(--ease);
 }
 
 .nav-btn span{
-    font-size:22px;
+    width:34px;
+    height:29px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:7px;
+    font-size:20px;
+    transition:.3s var(--ease);
 }
+
+.nav-btn:hover{
+    color:var(--navy);
+    background:var(--blue-light);
+}
+
+.nav-btn:hover span{
+    transform:translateY(-2px) scale(1.08);
+}
+
+.nav-btn.active{
+    color:var(--navy);
+}
+
+.nav-btn.active span{
+    color:var(--navy);
+    background:var(--blue-light);
+    box-shadow:0 2px 10px rgba(21,101,192,.2);
+    transform:translateY(-1px);
+}
+
+.nav-btn.active:after{
+    content:"";
+    position:absolute;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    bottom:3px;
+    background:var(--navy);
+    box-shadow:0 0 6px rgba(11,61,145,.6);
+    animation:pulseDot 2s ease-in-out infinite;
+}
+
+.nav-btn:active{
+    transform:scale(.94);
+}
+
+/* =========================================================
+   CALCULATOR NAV INDICATOR
+========================================================= */
+
+.calc-page.show ~ .bottom-nav{
+    display:none;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
 @media(max-width:390px){
 
@@ -1754,11 +2601,11 @@ a{
     }
 
     .hero h2{
-        font-size:24px;
+        font-size:20px;
     }
 
     .service .icon{
-        font-size:23px;
+        font-size:22px;
     }
 
     #bookingModal{
@@ -1767,11 +2614,11 @@ a{
 
     #bookingModal .modal-card{
         width:100%;
-        border-radius:24px !important;
+        border-radius:14px !important;
     }
 
     .booking-header{
-        padding:20px 16px;
+        padding:18px 15px;
     }
 
     .booking-body{
@@ -1779,25 +2626,60 @@ a{
     }
 
     .booking-title h2{
-        font-size:19px;
+        font-size:18px;
     }
 
     .booking-icon{
-        width:48px;
-        height:48px;
+        width:46px;
+        height:46px;
     }
 
     .booking-close{
-        width:36px;
-        height:36px;
+        width:35px;
+        height:35px;
     }
 
     .land-input-wrap input{
-        font-size:24px;
+        font-size:22px;
     }
 
     .calc-container{
         padding:12px 11px 35px;
+    }
+
+    .bottom-nav{
+        left:6px;
+        right:6px;
+        bottom:6px;
+        height:69px;
+        border-radius:9px;
+    }
+
+    .nav-btn{
+        font-size:8px;
+    }
+
+    .nav-btn span{
+        font-size:19px;
+    }
+
+    .whatsapp{
+        right:12px;
+        bottom:81px;
+    }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+    *,
+    *:before,
+    *:after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
     }
 }
 </style>
@@ -1806,28 +2688,53 @@ a{
 <body>
 
 <header class="topbar">
+
     <div class="brand">
+
         <div class="logo">📐</div>
+
         <div class="brand-text">
+
             <h1>Sajeb Survey</h1>
+
             <p>Land Intelligence</p>
+
         </div>
+
     </div>
 
     <div class="sync-box">
-        <span class="sync-dot" id="syncDot"></span>
-        <span id="syncText">Connecting...</span>
+
+        <span
+            class="sync-dot"
+            id="syncDot">
+        </span>
+
+        <span id="syncText">
+            Connecting...
+        </span>
+
     </div>
+
 </header>
 
 <main class="container">
 
 <section class="hero">
-    <h2>জমির তথ্য এখন এক জায়গায়</h2>
-    <p>মৌজা, দাগ, নাম ও PDF নথি দ্রুত খুঁজে দেখুন।</p>
+
+    <h2>
+        জমির তথ্য এখন এক জায়গায়
+    </h2>
+
+    <p>
+        মৌজা, দাগ, নাম ও PDF নথি দ্রুত খুঁজে দেখুন।
+    </p>
 
     <div class="search-box">
-        <span class="search-icon">🔍</span>
+
+        <span class="search-icon">
+            🔍
+        </span>
 
         <input
             id="searchInput"
@@ -1838,148 +2745,311 @@ a{
         <button
             class="clear-search"
             id="clearSearch"
-            onclick="clearSearch()">✕</button>
+            onclick="clearSearch()">
+            ✕
+        </button>
+
     </div>
 
     <div class="filters">
-        <button class="filter-btn active"
-                data-filter="all"
-                onclick="setFilter('all',this)">সব</button>
 
-        <button class="filter-btn"
-                data-filter="pdf"
-                onclick="setFilter('pdf',this)">📄 PDF</button>
+        <button
+            class="filter-btn active"
+            data-filter="all"
+            onclick="setFilter('all',this)">
+            সব
+        </button>
 
-        <button class="filter-btn"
-                data-filter="favorite"
-                onclick="setFilter('favorite',this)">⭐ Saved</button>
+        <button
+            class="filter-btn"
+            data-filter="pdf"
+            onclick="setFilter('pdf',this)">
+            📄 PDF
+        </button>
+
+        <button
+            class="filter-btn"
+            data-filter="favorite"
+            onclick="setFilter('favorite',this)">
+            ⭐ Saved
+        </button>
+
     </div>
+
 </section>
 
 <section class="section">
+
     <div class="stats">
 
         <div class="stat">
-            <div class="stat-icon">📋</div>
-            <strong id="totalCount">0</strong>
-            <span>মোট তথ্য</span>
+
+            <div class="stat-icon">
+                📋
+            </div>
+
+            <strong id="totalCount">
+                0
+            </strong>
+
+            <span>
+                মোট তথ্য
+            </span>
+
         </div>
 
         <div class="stat">
-            <div class="stat-icon">📄</div>
-            <strong id="pdfCount">0</strong>
-            <span>PDF</span>
+
+            <div class="stat-icon">
+                📄
+            </div>
+
+            <strong id="pdfCount">
+                0
+            </strong>
+
+            <span>
+                PDF
+            </span>
+
         </div>
 
         <div class="stat">
-            <div class="stat-icon">⭐</div>
-            <strong id="favCount">0</strong>
-            <span>Saved</span>
+
+            <div class="stat-icon">
+                ⭐
+            </div>
+
+            <strong id="favCount">
+                0
+            </strong>
+
+            <span>
+                Saved
+            </span>
+
         </div>
 
     </div>
+
 </section>
 
 <section class="section">
 
     <div class="section-head">
-        <h3>Quick Services</h3>
-        <span>দ্রুত ব্যবহার করুন</span>
+
+        <h3>
+            Quick Services
+        </h3>
+
+        <span>
+            দ্রুত ব্যবহার করুন
+        </span>
+
     </div>
 
     <div class="services">
 
-        <button class="service" onclick="goHome()">
-            <div class="icon">🗺️</div>
-            <span>জমির তথ্য</span>
+        <button
+            class="service"
+            onclick="goHome()">
+
+            <div class="icon">
+                🗺️
+            </div>
+
+            <span>
+                জমির তথ্য
+            </span>
+
         </button>
 
-        <button class="service" onclick="openCalculatorPage()">
-            <div class="icon">🧑‍🦱🧕</div>
-            <span>ছেলে মায়ের ক্যালকুলেটর</span>
+        <button
+            class="service"
+            onclick="openCalculatorPage()">
+
+            <div class="icon">
+                🧑‍🦱🧕
+            </div>
+
+            <span>
+                ছেলে মায়ের ক্যালকুলেটর
+            </span>
+
         </button>
 
-        <button class="service"
-                onclick="window.location.href='tel:+919083316562'">
-            <div class="icon">📞</div>
-            <span>Call</span>
+        <button
+            class="service"
+            onclick="window.location.href='tel:+919083316562'">
+
+            <div class="icon">
+                📞
+            </div>
+
+            <span>
+                Call
+            </span>
+
         </button>
 
-        <button class="service"
-                onclick="openBooking()">
-            <div class="icon">📅</div>
-            <span>Booking</span>
+        <button
+            class="service"
+            onclick="openBooking()">
+
+            <div class="icon">
+                📅
+            </div>
+
+            <span>
+                Booking
+            </span>
+
         </button>
 
     </div>
+
 </section>
 
-<section class="section" id="recentSection" style="display:none">
+<section
+    class="section"
+    id="recentSection"
+    style="display:none">
 
     <div class="section-head">
-        <h3>Recent Search</h3>
 
-        <span onclick="clearRecent()"
-              style="cursor:pointer">Clear</span>
+        <h3>
+            Recent Search
+        </h3>
+
+        <span
+            onclick="clearRecent()"
+            style="cursor:pointer">
+            Clear
+        </span>
+
     </div>
 
-    <div class="recent-list" id="recentList"></div>
+    <div
+        class="recent-list"
+        id="recentList">
+    </div>
 
 </section>
 
-<section class="section" id="recordsSection">
+<section
+    class="section"
+    id="recordsSection">
 
     <div class="section-head">
-        <h3>জমির তথ্য</h3>
-        <span id="recordCountText">Loading...</span>
+
+        <h3>
+            জমির তথ্য
+        </h3>
+
+        <span id="recordCountText">
+            Loading...
+        </span>
+
     </div>
 
-    <div class="result-info" id="resultInfo">
+    <div
+        class="result-info"
+        id="resultInfo">
         তথ্য লোড হচ্ছে...
     </div>
 
-    <div class="records" id="records"></div>
+    <div
+        class="records"
+        id="records">
+    </div>
 
 </section>
 
-<button class="admin-open" onclick="openAdmin()">
+<button
+    class="admin-open"
+    onclick="openAdmin()">
+
     🔐 Admin Panel
+
 </button>
 
 </main>
 
-<a class="whatsapp"
-   href="https://wa.me/919083316562"
-   target="_blank"
-   aria-label="WhatsApp">💬</a>
+<a
+    class="whatsapp"
+    href="https://wa.me/919083316562"
+    target="_blank"
+    aria-label="WhatsApp">
+    💬
+</a>
+
+<!-- =======================================================
+     PREMIUM BOTTOM NAV
+======================================================= -->
 
 <nav class="bottom-nav">
 
-    <button class="nav-btn active" onclick="goHome()">
-        <span>⌂</span>
+    <button
+        class="nav-btn active"
+        id="navHome"
+        onclick="goHome()">
+
+        <span>
+            ⌂
+        </span>
+
         Home
+
     </button>
 
-    <button class="nav-btn" onclick="focusSearch()">
-        <span>⌕</span>
+    <button
+        class="nav-btn"
+        id="navSearch"
+        onclick="focusSearch()">
+
+        <span>
+            ⌕
+        </span>
+
         Search
+
     </button>
 
-    <button class="nav-btn" onclick="setFilter('favorite')">
-        <span>★</span>
-        Saved
+    <button
+        class="nav-btn"
+        id="navCalculator"
+        onclick="openCalculatorPage()">
+
+        <span>
+            🧮
+        </span>
+
+        Calculator
+
     </button>
 
-    <button class="nav-btn" onclick="openAdmin()">
-        <span>⚙</span>
+    <button
+        class="nav-btn"
+        id="navAdmin"
+        onclick="openAdmin()">
+
+        <span>
+            ⚙
+        </span>
+
         Admin
+
     </button>
 
 </nav>
 
-<!-- BOOKING -->
+<!-- =======================================================
+     BOOKING
+======================================================= -->
 
-<div class="modal" id="bookingModal">
+<div
+    class="modal"
+    id="bookingModal">
 
     <div class="modal-card">
 
@@ -2016,14 +3086,19 @@ a{
             </div>
 
             <p class="booking-subtitle">
+
                 জমি মাপ, দাগ শনাক্তকরণ বা অন্যান্য
                 সার্ভে কাজের জন্য আপনার তথ্য দিন।
                 আমরা WhatsApp-এর মাধ্যমে আপনার সাথে যোগাযোগ করব।
+
             </p>
 
             <div class="booking-status">
+
                 <span class="booking-status-dot"></span>
+
                 Booking Service Available
+
             </div>
 
         </div>
@@ -2033,11 +3108,20 @@ a{
             <div class="booking-section-title">
 
                 <div>
-                    <small>STEP 01</small>
-                    <h3>👤 আপনার তথ্য</h3>
+
+                    <small>
+                        STEP 01
+                    </small>
+
+                    <h3>
+                        👤 আপনার তথ্য
+                    </h3>
+
                 </div>
 
-                <span class="booking-step">01</span>
+                <span class="booking-step">
+                    01
+                </span>
 
             </div>
 
@@ -2045,11 +3129,15 @@ a{
 
                 <div class="booking-field">
 
-                    <label>আপনার নাম</label>
+                    <label>
+                        আপনার নাম
+                    </label>
 
                     <div class="booking-input-wrap">
 
-                        <span class="booking-field-icon">👤</span>
+                        <span class="booking-field-icon">
+                            👤
+                        </span>
 
                         <input
                             id="bookName"
@@ -2063,11 +3151,15 @@ a{
 
                 <div class="booking-field">
 
-                    <label>মোবাইল নম্বর</label>
+                    <label>
+                        মোবাইল নম্বর
+                    </label>
 
                     <div class="booking-input-wrap">
 
-                        <span class="booking-field-icon">📱</span>
+                        <span class="booking-field-icon">
+                            📱
+                        </span>
 
                         <input
                             id="bookPhone"
@@ -2087,21 +3179,34 @@ a{
                 style="margin-top:22px">
 
                 <div>
-                    <small>STEP 02</small>
-                    <h3>📍 কাজের জায়গা</h3>
+
+                    <small>
+                        STEP 02
+                    </small>
+
+                    <h3>
+                        📍 কাজের জায়গা
+                    </h3>
+
                 </div>
 
-                <span class="booking-step">02</span>
+                <span class="booking-step">
+                    02
+                </span>
 
             </div>
 
             <div class="booking-field">
 
-                <label>ঠিকানা / মৌজা / গ্রাম</label>
+                <label>
+                    ঠিকানা / মৌজা / গ্রাম
+                </label>
 
                 <div class="booking-input-wrap">
 
-                    <span class="booking-field-icon">📍</span>
+                    <span class="booking-field-icon">
+                        📍
+                    </span>
 
                     <input
                         id="bookPlace"
@@ -2117,21 +3222,34 @@ a{
                 style="margin-top:22px">
 
                 <div>
-                    <small>STEP 03</small>
-                    <h3>🛠️ সার্ভে কাজ</h3>
+
+                    <small>
+                        STEP 03
+                    </small>
+
+                    <h3>
+                        🛠️ সার্ভে কাজ
+                    </h3>
+
                 </div>
 
-                <span class="booking-step">03</span>
+                <span class="booking-step">
+                    03
+                </span>
 
             </div>
 
             <div class="booking-field">
 
-                <label>কাজের ধরন</label>
+                <label>
+                    কাজের ধরন
+                </label>
 
                 <div class="booking-input-wrap booking-work-wrap">
 
-                    <span class="booking-field-icon">📐</span>
+                    <span class="booking-field-icon">
+                        📐
+                    </span>
 
                     <textarea
                         id="bookWork"
@@ -2143,11 +3261,15 @@ a{
 
             <div class="booking-info-card">
 
-                <div class="booking-info-icon">ℹ️</div>
+                <div class="booking-info-icon">
+                    ℹ️
+                </div>
 
                 <div>
 
-                    <strong>Booking সম্পর্কে</strong>
+                    <strong>
+                        Booking সম্পর্কে
+                    </strong>
 
                     <p>
                         তথ্য পাঠানোর পর WhatsApp খুলবে।
@@ -2163,13 +3285,17 @@ a{
                 class="booking-submit"
                 onclick="sendBooking()">
 
-                <span class="booking-submit-icon">💬</span>
+                <span class="booking-submit-icon">
+                    💬
+                </span>
 
                 <span>
                     WhatsApp-এ Booking পাঠান
                 </span>
 
-                <span class="booking-submit-arrow">→</span>
+                <span class="booking-submit-arrow">
+                    →
+                </span>
 
             </button>
 
@@ -2177,7 +3303,9 @@ a{
 
         <div class="booking-footer">
 
-            <span>SAJEB SURVEY</span>
+            <span>
+                SAJEB SURVEY
+            </span>
 
             <small>
                 Land Intelligence • Survey Service
@@ -2189,25 +3317,37 @@ a{
 
 </div>
 
-<!-- CALCULATOR -->
+<!-- =======================================================
+     CALCULATOR
+======================================================= -->
 
-<div class="calc-page" id="calculatorPage">
+<div
+    class="calc-page"
+    id="calculatorPage">
 
     <div class="calc-topbar">
 
         <button
             class="calc-back"
-            onclick="closeCalculatorPage()">←</button>
+            onclick="closeCalculatorPage()">
+            ←
+        </button>
 
         <div class="calc-page-title">
 
-            <strong>জমির হিসাব</strong>
+            <strong>
+                জমির হিসাব
+            </strong>
 
-            <span>ISLAMIC CHILDREN SHARE</span>
+            <span>
+                ISLAMIC CHILDREN SHARE
+            </span>
 
         </div>
 
-        <div class="calc-top-icon">⚖️</div>
+        <div class="calc-top-icon">
+            ⚖️
+        </div>
 
     </div>
 
@@ -2215,7 +3355,9 @@ a{
 
         <div class="calc-hero">
 
-            <div class="calc-hero-icon">🧮</div>
+            <div class="calc-hero-icon">
+                🧮
+            </div>
 
             <div>
 
@@ -2223,7 +3365,9 @@ a{
                     LAND CALCULATOR
                 </div>
 
-                <h2>জমির পরিমাণ</h2>
+                <h2>
+                    জমির পরিমাণ
+                </h2>
 
                 <p>
                     জমির পরিমাণ ও সন্তান সংখ্যা দিয়ে
@@ -2239,11 +3383,20 @@ a{
             <div class="calc-card-head">
 
                 <div>
-                    <span class="calc-label">STEP 01</span>
-                    <h3>📐 জমির পরিমাণ</h3>
+
+                    <span class="calc-label">
+                        STEP 01
+                    </span>
+
+                    <h3>
+                        📐 জমির পরিমাণ
+                    </h3>
+
                 </div>
 
-                <span class="calc-number">01</span>
+                <span class="calc-number">
+                    01
+                </span>
 
             </div>
 
@@ -2260,11 +3413,25 @@ a{
 
                     <select id="landUnit">
 
-                        <option value="decimal">শতক</option>
-                        <option value="katha">কাঠা</option>
-                        <option value="bigha">বিঘা</option>
-                        <option value="acre">একর</option>
-                        <option value="sqft">বর্গফুট</option>
+                        <option value="decimal">
+                            শতক
+                        </option>
+
+                        <option value="katha">
+                            কাঠা
+                        </option>
+
+                        <option value="bigha">
+                            বিঘা
+                        </option>
+
+                        <option value="acre">
+                            একর
+                        </option>
+
+                        <option value="sqft">
+                            বর্গফুট
+                        </option>
 
                     </select>
 
@@ -2275,7 +3442,9 @@ a{
             <div
                 class="conversion-preview"
                 id="conversionPreview">
+
                 জমির পরিমাণ লিখুন
+
             </div>
 
         </div>
@@ -2285,11 +3454,20 @@ a{
             <div class="calc-card-head">
 
                 <div>
-                    <span class="calc-label">STEP 02</span>
-                    <h3>👨‍👩‍👧‍👦 সন্তান সংখ্যা</h3>
+
+                    <span class="calc-label">
+                        STEP 02
+                    </span>
+
+                    <h3>
+                        👨‍👩‍👧‍👦 সন্তান সংখ্যা
+                    </h3>
+
                 </div>
 
-                <span class="calc-number">02</span>
+                <span class="calc-number">
+                    02
+                </span>
 
             </div>
 
@@ -2297,22 +3475,35 @@ a{
 
                 <div class="child-box son-box">
 
-                    <div class="child-icon">👦</div>
+                    <div class="child-icon">
+                        👦
+                    </div>
 
                     <div class="child-info">
-                        <span>ছেলে</span>
-                        <small>২ অংশ</small>
+
+                        <span>
+                            ছেলে
+                        </span>
+
+                        <small>
+                            ২ অংশ
+                        </small>
+
                     </div>
 
                     <div class="counter">
 
-                        <button onclick="changeChildCount('sons',-1)">
+                        <button
+                            onclick="changeChildCount('sons',-1)">
                             −
                         </button>
 
-                        <strong id="sonsCount">0</strong>
+                        <strong id="sonsCount">
+                            0
+                        </strong>
 
-                        <button onclick="changeChildCount('sons',1)">
+                        <button
+                            onclick="changeChildCount('sons',1)">
                             +
                         </button>
 
@@ -2322,22 +3513,35 @@ a{
 
                 <div class="child-box daughter-box">
 
-                    <div class="child-icon">👧</div>
+                    <div class="child-icon">
+                        👧
+                    </div>
 
                     <div class="child-info">
-                        <span>মেয়ে</span>
-                        <small>১ অংশ</small>
+
+                        <span>
+                            মেয়ে
+                        </span>
+
+                        <small>
+                            ১ অংশ
+                        </small>
+
                     </div>
 
                     <div class="counter">
 
-                        <button onclick="changeChildCount('daughters',-1)">
+                        <button
+                            onclick="changeChildCount('daughters',-1)">
                             −
                         </button>
 
-                        <strong id="daughtersCount">0</strong>
+                        <strong id="daughtersCount">
+                            0
+                        </strong>
 
-                        <button onclick="changeChildCount('daughters',1)">
+                        <button
+                            onclick="changeChildCount('daughters',1)">
                             +
                         </button>
 
@@ -2349,7 +3553,9 @@ a{
 
             <div class="share-rule">
 
-                <div class="rule-icon">⚖️</div>
+                <div class="rule-icon">
+                    ⚖️
+                </div>
 
                 <div>
 
@@ -2372,17 +3578,28 @@ a{
             <div class="calc-card-head">
 
                 <div>
-                    <span class="calc-label">STEP 03</span>
-                    <h3>ℹ️ অতিরিক্ত তথ্য</h3>
+
+                    <span class="calc-label">
+                        STEP 03
+                    </span>
+
+                    <h3>
+                        ℹ️ অতিরিক্ত তথ্য
+                    </h3>
+
                 </div>
 
-                <span class="calc-number">03</span>
+                <span class="calc-number">
+                    03
+                </span>
 
             </div>
 
             <div class="notice-box">
 
-                <span class="notice-icon">ⓘ</span>
+                <span class="notice-icon">
+                    ⓘ
+                </span>
 
                 <p>
                     এই হিসাবটি শুধুমাত্র ছেলে-মেয়ের মধ্যে
@@ -2400,9 +3617,17 @@ a{
             class="calculate-main"
             onclick="calculateInheritance()">
 
-            <span>⚡</span>
-            <span>হিসাব করুন</span>
-            <span class="calculate-arrow">→</span>
+            <span>
+                ⚡
+            </span>
+
+            <span>
+                হিসাব করুন
+            </span>
+
+            <span class="calculate-arrow">
+                →
+            </span>
 
         </button>
 
@@ -2414,37 +3639,86 @@ a{
             <div class="result-head">
 
                 <div>
-                    <span>CALCULATION RESULT</span>
-                    <h3>📊 ভাগের ফলাফল</h3>
+
+                    <span>
+                        CALCULATION RESULT
+                    </span>
+
+                    <h3>
+                        📊 ভাগের ফলাফল
+                    </h3>
+
                 </div>
 
-                <div class="result-check">✓</div>
+                <div class="result-check">
+                    ✓
+                </div>
 
             </div>
 
             <div class="total-land-result">
 
-                <small>মোট জমি</small>
+                <small>
+                    মোট জমি
+                </small>
 
-                <strong id="resultTotalLand">-</strong>
+                <strong id="resultTotalLand">
+                    -
+                </strong>
+
+                <small
+                    id="resultTotalKatha"
+                    class="result-total-katha">
+                </small>
+
+                <small
+                    id="resultTotalDhul"
+                    class="result-total-dhul">
+                </small>
+
+                <small
+                    id="resultTotalSqft"
+                    class="result-total-sqft">
+                </small>
 
             </div>
 
             <div class="share-summary">
 
                 <div class="summary-item">
-                    <small>মোট অংশ</small>
-                    <strong id="resultTotalParts">0</strong>
+
+                    <small>
+                        মোট অংশ
+                    </small>
+
+                    <strong id="resultTotalParts">
+                        0
+                    </strong>
+
                 </div>
 
                 <div class="summary-item">
-                    <small>ছেলে</small>
-                    <strong id="resultSons">0</strong>
+
+                    <small>
+                        ছেলে
+                    </small>
+
+                    <strong id="resultSons">
+                        0
+                    </strong>
+
                 </div>
 
                 <div class="summary-item">
-                    <small>মেয়ে</small>
-                    <strong id="resultDaughters">0</strong>
+
+                    <small>
+                        মেয়ে
+                    </small>
+
+                    <strong id="resultDaughters">
+                        0
+                    </strong>
+
                 </div>
 
             </div>
@@ -2455,12 +3729,16 @@ a{
             </div>
 
             <div class="result-note">
+
                 ⚖️ হিসাবের ভিত্তি:
                 ১ ছেলে = ২ অংশ এবং ১ মেয়ে = ১ অংশ।
+
                 <br><br>
+
                 এটি সন্তানদের মধ্যে ২:১ অনুপাতের হিসাব।
                 সম্পূর্ণ ফারায়েজ হিসাবের জন্য অন্যান্য
                 বৈধ উত্তরাধিকারীর তথ্য বিবেচনা করতে হবে।
+
             </div>
 
         </div>
@@ -2468,26 +3746,42 @@ a{
         <button
             class="calc-reset"
             onclick="resetInheritanceCalculator()">
+
             ↻ নতুন করে হিসাব করুন
+
         </button>
 
         <div class="calc-footer">
-            <span>SAJEB SURVEY</span>
-            <small>Land Intelligence</small>
+
+            <span>
+                SAJEB SURVEY
+            </span>
+
+            <small>
+                Land Intelligence
+            </small>
+
         </div>
 
     </div>
+
 </div>
 
-<!-- ADMIN MODAL -->
+<!-- =======================================================
+     ADMIN MODAL
+======================================================= -->
 
-<div class="modal" id="adminModal">
+<div
+    class="modal"
+    id="adminModal">
 
     <div class="modal-card">
 
         <div class="modal-head">
 
-            <h3>🔐 Admin Panel</h3>
+            <h3>
+                🔐 Admin Panel
+            </h3>
 
             <button
                 class="close"
@@ -2501,7 +3795,9 @@ a{
 
             <div class="form-group">
 
-                <label>Admin Email</label>
+                <label>
+                    Admin Email
+                </label>
 
                 <input
                     class="input"
@@ -2514,7 +3810,9 @@ a{
 
             <div class="form-group">
 
-                <label>Admin Password</label>
+                <label>
+                    Admin Password
+                </label>
 
                 <input
                     class="input"
@@ -2528,7 +3826,9 @@ a{
             <button
                 class="btn primary"
                 onclick="adminLogin()">
+
                 Login
+
             </button>
 
         </div>
@@ -2544,34 +3844,68 @@ a{
             <div class="admin-stats">
 
                 <div class="admin-stat">
-                    <small>Total Records</small>
-                    <strong id="adminTotal">0</strong>
+
+                    <small>
+                        Total Records
+                    </small>
+
+                    <strong id="adminTotal">
+                        0
+                    </strong>
+
                 </div>
 
                 <div class="admin-stat">
-                    <small>PDF Records</small>
-                    <strong id="adminPdf">0</strong>
+
+                    <small>
+                        PDF Records
+                    </small>
+
+                    <strong id="adminPdf">
+                        0
+                    </strong>
+
                 </div>
 
                 <div class="admin-stat">
-                    <small>Saved</small>
-                    <strong id="adminFav">0</strong>
+
+                    <small>
+                        Saved
+                    </small>
+
+                    <strong id="adminFav">
+                        0
+                    </strong>
+
                 </div>
 
                 <div class="admin-stat">
-                    <small>Status</small>
-                    <strong id="adminOnline">Online</strong>
+
+                    <small>
+                        Status
+                    </small>
+
+                    <strong id="adminOnline">
+                        Online
+                    </strong>
+
                 </div>
 
             </div>
 
             <div class="section-head">
-                <h3>নতুন তথ্য যোগ করুন</h3>
+
+                <h3>
+                    নতুন তথ্য যোগ করুন
+                </h3>
+
             </div>
 
             <div class="form-group">
 
-                <label>মৌজার নাম</label>
+                <label>
+                    মৌজার নাম
+                </label>
 
                 <input
                     class="input"
@@ -2582,7 +3916,9 @@ a{
 
             <div class="form-group">
 
-                <label>দাগ নম্বর</label>
+                <label>
+                    দাগ নম্বর
+                </label>
 
                 <input
                     class="input"
@@ -2593,7 +3929,9 @@ a{
 
             <div class="form-group">
 
-                <label>নাম / মালিক</label>
+                <label>
+                    নাম / মালিক
+                </label>
 
                 <input
                     class="input"
@@ -2604,7 +3942,9 @@ a{
 
             <div class="form-group">
 
-                <label>PDF Link</label>
+                <label>
+                    PDF Link
+                </label>
 
                 <input
                     class="input"
@@ -2616,7 +3956,9 @@ a{
             <button
                 class="btn primary"
                 onclick="addRecord()">
+
                 ＋ তথ্য যোগ করুন
+
             </button>
 
             <div
@@ -2624,10 +3966,15 @@ a{
                 style="margin-top:22px">
 
                 <div class="section-head">
-                    <h3>Record Management</h3>
+
+                    <h3>
+                        Record Management
+                    </h3>
+
                 </div>
 
-                <div id="adminRecords"></div>
+                <div id="adminRecords">
+                </div>
 
             </div>
 
@@ -2635,23 +3982,32 @@ a{
                 class="btn"
                 style="margin-top:10px"
                 onclick="adminLogout()">
+
                 Logout
+
             </button>
 
         </div>
 
     </div>
+
 </div>
 
-<!-- DELETE -->
+<!-- =======================================================
+     DELETE
+======================================================= -->
 
-<div class="modal" id="deleteModal">
+<div
+    class="modal"
+    id="deleteModal">
 
     <div class="modal-card">
 
         <div class="modal-head">
 
-            <h3>⚠️ Delete Record</h3>
+            <h3>
+                ⚠️ Delete Record
+            </h3>
 
             <button
                 class="close"
@@ -2663,8 +4019,10 @@ a{
 
         <p
             id="deleteText"
-            style="color:#aab6b0;font-size:13px;line-height:1.7">
+            style="color:var(--muted);font-size:13px;line-height:1.7">
+
             আপনি কি এই তথ্যটি মুছে ফেলতে চান?
+
         </p>
 
         <div class="record-actions">
@@ -2672,28 +4030,38 @@ a{
             <button
                 class="btn"
                 onclick="closeModal('deleteModal')">
+
                 Cancel
+
             </button>
 
             <button
                 class="btn"
-                style="background:rgba(239,98,98,.12);color:#ff8585"
+                style="background:var(--danger-light);color:var(--danger);border-color:var(--danger)"
                 onclick="confirmDelete()">
+
                 Delete
+
             </button>
 
         </div>
 
     </div>
+
 </div>
 
-<!-- LOADER -->
+<!-- =======================================================
+     LOADER
+======================================================= -->
 
-<div class="loader-overlay" id="loader">
+<div
+    class="loader-overlay"
+    id="loader">
 
     <div class="loader-card">
 
-        <div class="spinner"></div>
+        <div class="spinner">
+        </div>
 
         <p id="loaderText">
             জমির তথ্য লোড হচ্ছে...
@@ -2703,7 +4071,10 @@ a{
 
 </div>
 
-<div class="toast" id="toast"></div>
+<div
+    class="toast"
+    id="toast">
+</div>
 
 <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"></script>
@@ -2771,6 +4142,29 @@ let unsubscribeRecords=null;
 let toastTimer;
 
 /* =========================================================
+   BOTTOM NAV STATE
+========================================================= */
+
+function setActiveNav(name){
+
+    document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn=>{
+        btn.classList.remove("active");
+    });
+
+    const nav=
+    document.getElementById(
+        "nav"+name
+    );
+
+    if(nav){
+        nav.classList.add("active");
+    }
+
+}
+
+/* =========================================================
    BASIC UI
 ========================================================= */
 
@@ -2818,7 +4212,7 @@ function closeModal(id){
 }
 
 /* =========================================================
-   BOOKING DASHBOARD
+   BOOKING
 ========================================================= */
 
 function openBooking(){
@@ -3206,11 +4600,11 @@ function setSync(type,text){
     label.textContent=text;
 
     if(type==="online"){
-        dot.style.background="var(--green2)";
+        dot.style.background="#4caf50";
     }else if(type==="offline"){
         dot.style.background="#ef6262";
     }else{
-        dot.style.background="var(--gold2)";
+        dot.style.background="#ffb300";
     }
 
 }
@@ -3360,7 +4754,7 @@ function recordCard(record,index){
 
     return `
 
-    <article class="record">
+    <article class="record" style="animation-delay:${Math.min(index*40,400)}ms">
 
         <div class="record-top">
 
@@ -3400,7 +4794,9 @@ function recordCard(record,index){
 
             <div class="data-box">
 
-                <small>মৌজা</small>
+                <small>
+                    মৌজা
+                </small>
 
                 <strong>
                     ${escapeHtml(
@@ -3412,7 +4808,9 @@ function recordCard(record,index){
 
             <div class="data-box">
 
-                <small>দাগ নম্বর</small>
+                <small>
+                    দাগ নম্বর
+                </small>
 
                 <strong>
                     ${escapeHtml(
@@ -3487,7 +4885,9 @@ function renderEmpty(title,message){
 
     <div class="empty">
 
-        <div class="big">📭</div>
+        <div class="big">
+            📭
+        </div>
 
         <h4>
             ${escapeHtml(title)}
@@ -3543,6 +4943,8 @@ function clearSearch(){
 
 function focusSearch(){
 
+    setActiveNav("Search");
+
     searchInput.focus();
 
     window.scrollTo({
@@ -3560,6 +4962,8 @@ searchInput.addEventListener(
     "input",
     ()=>{
 
+        setActiveNav("Search");
+
         renderRecords();
 
         if(searchInput.value.trim()){
@@ -3568,12 +4972,6 @@ searchInput.addEventListener(
 
     }
 );
-
-/* =========================================================
-   SEARCH ENTER FIX
-   Enter চাপলে result render হওয়ার পর
-   সরাসরি Land Records section-এ যাবে
-========================================================= */
 
 searchInput.addEventListener(
     "keydown",
@@ -3585,10 +4983,8 @@ searchInput.addEventListener(
 
         event.preventDefault();
 
-        /* আগে search result render */
         renderRecords();
 
-        /* সামান্য delay দিয়ে DOM update নিশ্চিত করা */
         requestAnimationFrame(()=>{
 
             const resultSection=
@@ -3700,6 +5096,8 @@ function renderRecent(){
 function useRecent(value){
 
     searchInput.value=value;
+
+    setActiveNav("Search");
 
     renderRecords();
 
@@ -3839,6 +5237,8 @@ let inheritanceDaughters=0;
 
 function openCalculatorPage(){
 
+    setActiveNav("Calculator");
+
     document
     .getElementById("calculatorPage")
     .classList.add("show");
@@ -3856,6 +5256,8 @@ function closeCalculatorPage(){
     .classList.remove("show");
 
     document.body.classList.remove("calc-open");
+
+    setActiveNav("Home");
 
 }
 
@@ -3893,6 +5295,20 @@ function changeChildCount(type,amount){
 
 }
 
+/* =========================================================
+   LAND CONVERSION
+========================================================= */
+
+/*
+    এখানে আপনার আগের conversion system রাখা হয়েছে:
+
+    ১ কাঠা = ১.৬৫২৯ শতক
+    ১ কাঠা = ২০ ধুল
+    ১ কাঠা = ৭২০ বর্গফুট
+    ১ বিঘা = ২০ কাঠা
+    ১ একর = ১০০ শতক
+*/
+
 function landToDecimal(value,unit){
 
     value=Number(value);
@@ -3928,6 +5344,75 @@ function formatNumber(number,digits=2){
 
 }
 
+/* =========================================================
+   KATHA
+========================================================= */
+
+function formatKathaResult(selectedValue,unit){
+
+    const decimalValue =
+    landToDecimal(
+        selectedValue,
+        unit
+    );
+
+    const kathaValue =
+    decimalValue / 1.6529;
+
+    return `${formatNumber(kathaValue,2)} কাঠা`;
+
+}
+
+/* =========================================================
+   DHUL
+   ১ কাঠা = ২০ ধুল
+========================================================= */
+
+function formatDhulResult(selectedValue,unit){
+
+    const decimalValue =
+    landToDecimal(
+        selectedValue,
+        unit
+    );
+
+    const kathaValue =
+    decimalValue / 1.6529;
+
+    const dhul =
+    kathaValue * 20;
+
+    return `${formatNumber(dhul,2)} ধুল`;
+
+}
+
+/* =========================================================
+   SQFT
+   ১ কাঠা = ৭২০ বর্গফুট
+========================================================= */
+
+function formatSqftResult(selectedValue,unit){
+
+    const decimalValue =
+    landToDecimal(
+        selectedValue,
+        unit
+    );
+
+    const kathaValue =
+    decimalValue / 1.6529;
+
+    const sqft =
+    kathaValue * 720;
+
+    return `${formatNumber(sqft,2)} বর্গফুট`;
+
+}
+
+/* =========================================================
+   LAND CONVERSION PREVIEW
+========================================================= */
+
 function updateLandConversion(){
 
     const input=
@@ -3958,16 +5443,28 @@ function updateLandConversion(){
         unit.value
     );
 
-    const katha=decimal/1.6529;
-    const bigha=decimal/33.0579;
-    const acre=decimal/100;
-    const sqft=decimal*435.6;
+    const katha=
+    decimal/1.6529;
+
+    const bigha=
+    decimal/33.0579;
+
+    const acre=
+    decimal/100;
+
+    const dhul=
+    katha*20;
+
+    const sqft=
+    katha*720;
 
     preview.innerHTML=
 
     `≈ ${formatNumber(decimal)} শতক
     &nbsp; • &nbsp;
     ${formatNumber(katha)} কাঠা
+    &nbsp; • &nbsp;
+    ${formatNumber(dhul)} ধুল
     &nbsp; • &nbsp;
     ${formatNumber(bigha)} বিঘা
     &nbsp; • &nbsp;
@@ -3976,6 +5473,10 @@ function updateLandConversion(){
     ${formatNumber(sqft)} বর্গফুট`;
 
 }
+
+/* =========================================================
+   CALCULATE
+========================================================= */
 
 function calculateInheritance(){
 
@@ -4074,10 +5575,33 @@ function calculateInheritance(){
     const totalDaughterLandSelected=
     totalDaughterLand/unitDivider;
 
+    /* মোট জমি */
+
     document.getElementById(
         "resultTotalLand"
     ).textContent=
     `${formatNumber(totalLandSelected)} ${unitName}`;
+
+    /* কাঠা */
+
+    document.getElementById(
+        "resultTotalKatha"
+    ).textContent=
+    `= ${formatKathaResult(totalLandSelected,unit)}`;
+
+    /* ধুল */
+
+    document.getElementById(
+        "resultTotalDhul"
+    ).textContent=
+    `= ${formatDhulResult(totalLandSelected,unit)}`;
+
+    /* বর্গফুট */
+
+    document.getElementById(
+        "resultTotalSqft"
+    ).textContent=
+    `= ${formatSqftResult(totalLandSelected,unit)}`;
 
     document.getElementById(
         "resultTotalParts"
@@ -4092,6 +5616,10 @@ function calculateInheritance(){
     ).textContent=inheritanceDaughters;
 
     let html="";
+
+    /* =====================================================
+       ছেলে
+    ===================================================== */
 
     if(inheritanceSons>0){
 
@@ -4125,6 +5653,18 @@ function calculateInheritance(){
                     ${formatNumber(oneSonSelected)}
                     ${unitName}
                 </strong>
+
+                <small class="result-katha">
+                    = ${formatKathaResult(oneSonSelected,unit)}
+                </small>
+
+                <small class="result-dhul">
+                    = ${formatDhulResult(oneSonSelected,unit)}
+                </small>
+
+                <small class="result-sqft">
+                    = ${formatSqftResult(oneSonSelected,unit)}
+                </small>
 
                 <small>
                     প্রতি ছেলে
@@ -4163,7 +5703,21 @@ function calculateInheritance(){
                     ${unitName}
                 </strong>
 
-                <small>মোট</small>
+                <small class="result-katha">
+                    = ${formatKathaResult(totalSonLandSelected,unit)}
+                </small>
+
+                <small class="result-dhul">
+                    = ${formatDhulResult(totalSonLandSelected,unit)}
+                </small>
+
+                <small class="result-sqft">
+                    = ${formatSqftResult(totalSonLandSelected,unit)}
+                </small>
+
+                <small>
+                    মোট
+                </small>
 
             </div>
 
@@ -4172,6 +5726,10 @@ function calculateInheritance(){
         `;
 
     }
+
+    /* =====================================================
+       মেয়ে
+    ===================================================== */
 
     if(inheritanceDaughters>0){
 
@@ -4205,6 +5763,18 @@ function calculateInheritance(){
                     ${formatNumber(oneDaughterSelected)}
                     ${unitName}
                 </strong>
+
+                <small class="result-katha">
+                    = ${formatKathaResult(oneDaughterSelected,unit)}
+                </small>
+
+                <small class="result-dhul">
+                    = ${formatDhulResult(oneDaughterSelected,unit)}
+                </small>
+
+                <small class="result-sqft">
+                    = ${formatSqftResult(oneDaughterSelected,unit)}
+                </small>
 
                 <small>
                     প্রতি মেয়ে
@@ -4243,7 +5813,21 @@ function calculateInheritance(){
                     ${unitName}
                 </strong>
 
-                <small>মোট</small>
+                <small class="result-katha">
+                    = ${formatKathaResult(totalDaughterLandSelected,unit)}
+                </small>
+
+                <small class="result-dhul">
+                    = ${formatDhulResult(totalDaughterLandSelected,unit)}
+                </small>
+
+                <small class="result-sqft">
+                    = ${formatSqftResult(totalDaughterLandSelected,unit)}
+                </small>
+
+                <small>
+                    মোট
+                </small>
 
             </div>
 
@@ -4284,6 +5868,7 @@ function resetInheritanceCalculator(){
     ).value="decimal";
 
     inheritanceSons=0;
+
     inheritanceDaughters=0;
 
     document.getElementById(
@@ -4299,6 +5884,18 @@ function resetInheritanceCalculator(){
     ).style.display="none";
 
     document.getElementById(
+        "resultTotalKatha"
+    ).textContent="";
+
+    document.getElementById(
+        "resultTotalDhul"
+    ).textContent="";
+
+    document.getElementById(
+        "resultTotalSqft"
+    ).textContent="";
+
+    document.getElementById(
         "conversionPreview"
     ).textContent=
     "জমির পরিমাণ লিখুন";
@@ -4310,6 +5907,8 @@ function resetInheritanceCalculator(){
 ========================================================= */
 
 function openAdmin(){
+
+    setActiveNav("Admin");
 
     openModal("adminModal");
 
@@ -4357,7 +5956,9 @@ async function adminLogin(){
 
     }
 
-    showLoader("Admin Login হচ্ছে...");
+    showLoader(
+        "Admin Login হচ্ছে..."
+    );
 
     try{
 
@@ -4368,7 +5969,9 @@ async function adminLogin(){
 
         adminLogged=true;
 
-        showToast("Admin Login সফল");
+        showToast(
+            "Admin Login সফল"
+        );
 
         showAdminDashboard();
 
@@ -4448,11 +6051,17 @@ async function adminLogout(){
             "adminLogin"
         ).style.display="block";
 
-        showToast("Logout হয়েছে");
+        setActiveNav("Home");
+
+        showToast(
+            "Logout হয়েছে"
+        );
 
     }catch(e){
 
-        showToast("Logout করা যায়নি");
+        showToast(
+            "Logout করা যায়নি"
+        );
 
     }
 
@@ -4503,7 +6112,9 @@ function renderAdminRecords(){
 
         <div class="empty">
 
-            <div class="big">📭</div>
+            <div class="big">
+                📭
+            </div>
 
             <h4>
                 কোনো Record নেই
@@ -4554,7 +6165,9 @@ function renderAdminRecords(){
                     `<button
                         class="btn"
                         onclick="openPDF('${escapeAttr(record.pdf)}')">
+
                         PDF
+
                     </button>`
 
                     :""
@@ -4562,9 +6175,11 @@ function renderAdminRecords(){
 
                 <button
                     class="btn"
-                    style="color:#ff8585"
+                    style="color:var(--danger);border-color:var(--danger);background:var(--danger-light)"
                     onclick="askDelete('${escapeAttr(record.id)}')">
+
                     🗑 Delete
+
                 </button>
 
             </div>
@@ -4752,7 +6367,9 @@ async function confirmDelete(){
 
     if(!auth.currentUser){
 
-        showToast("Admin Login প্রয়োজন");
+        showToast(
+            "Admin Login প্রয়োজন"
+        );
 
         closeModal("deleteModal");
 
@@ -4821,6 +6438,8 @@ async function confirmDelete(){
 
 function goHome(){
 
+    setActiveNav("Home");
+
     currentFilter="all";
 
     document
@@ -4854,7 +6473,10 @@ window.addEventListener(
     "online",
     ()=>{
 
-        setSync("online","Online");
+        setSync(
+            "online",
+            "Online"
+        );
 
         showToast(
             "Internet connection ফিরে এসেছে"
@@ -4869,9 +6491,14 @@ window.addEventListener(
     "offline",
     ()=>{
 
-        setSync("offline","Offline");
+        setSync(
+            "offline",
+            "Offline"
+        );
 
-        showToast("Offline mode");
+        showToast(
+            "Offline mode"
+        );
 
         updateStats();
 
@@ -4895,7 +6522,11 @@ document
                 modal.classList.remove("show");
 
                 if(modal.id==="bookingModal"){
-                    document.body.classList.remove("booking-open");
+
+                    document.body.classList.remove(
+                        "booking-open"
+                    );
+
                 }
 
             }
@@ -4941,10 +6572,14 @@ document.addEventListener(
     ()=>{
 
         const land=
-        document.getElementById("inheritLand");
+        document.getElementById(
+            "inheritLand"
+        );
 
         const unit=
-        document.getElementById("landUnit");
+        document.getElementById(
+            "landUnit"
+        );
 
         if(land){
 
@@ -4982,6 +6617,8 @@ updateStats();
 renderRecords();
 
 startRealtimeSync();
+
+setActiveNav("Home");
 
 setInterval(
     ()=>{
